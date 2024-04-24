@@ -23,7 +23,7 @@ class PubDetail(DetailView):
  
 class PubCreate(CreateView):
     model = Publication
-    from_class=CRUDPUBFORM
+    form_class=CRUDPUBFORM
     template_name = 'publications/form.html'
     success_url= reverse_lazy('publications')
 
@@ -33,7 +33,7 @@ class PubCreate(CreateView):
     
 class PubUpdate(UpdateView):
     model = Publication
-    from_class=CRUDPUBFORM
+    form_class=CRUDPUBFORM
     template_name = 'publications/form.html'
     success_url= reverse_lazy('publications')
 

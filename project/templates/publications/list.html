@@ -1,1 +1,14 @@
 <h1> List de publication </h1>
+<br>
+<a href="{% url 'create' %}"  >Create</a>
+<br>
+
+{% if publications %}
+    {% for p in publications %}
+        <a href="{% url 'detail' p.id  %}"  >{{p.titre}}</a>
+        <a href="{% url 'update' p.id  %}"  >Update</a>
+        <a href="{% url 'delete' p.id  %}"  >Delete</a>
+    {% endfor %} 
+    {% else %}
+    <p> Sorry no pending posts </p>
+{% endif %}
