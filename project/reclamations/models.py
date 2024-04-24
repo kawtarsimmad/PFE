@@ -20,7 +20,7 @@ class Reclamation(models.Model):
         # Add more statuses as needed
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default="Donor")
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     recl_type = models.CharField(max_length=100, choices=RECLAMATION_TYPES,default="Other")
     description = models.TextField(max_length=100, default="Your default description here")
     status = models.CharField(max_length=100, default='Pending')  # Status as a regular field
