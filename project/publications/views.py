@@ -28,7 +28,7 @@ class PubCreate(CreateView):
     success_url= reverse_lazy('publications')
 
     def form_valid(self, form):
-        form.instance.association= self.request.association
+        form.instance.user= self.request.user
         return super(PubCreate, self).form_valid(form)
     
 class PubUpdate(UpdateView):
