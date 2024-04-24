@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from . models import Category
-# Create your views here.
-def category(request):
-    return render(request, 'categories/category.html')
-def categories(request):
-    return render(request, 'categories/categories.html',{'ct':Category.objects.all()})
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('category/',views.category,name='category'),
+    path('categories/',views.categories,name='categories'),
+]
