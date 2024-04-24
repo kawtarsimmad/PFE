@@ -1,0 +1,223 @@
+{%extends 'base.html' %}
+{%  load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<body  >
+
+  {% block content %}
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center"style="background-image: url('/static/assets/img/Mine.jpg')">
+    <div class="container" data-aos="zoom-out" data-aos-delay="100">
+      <h1>Welcome to <span> HopeBloom      </span></h1>
+      <h2> Together, We're Here </h2>
+      <div class="d-flex">
+        <a href="#about" class="btn-get-started scrollto">Get Started</a>
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= Featured Services Section ======= -->
+    <section id="featured-services" class="featured-services">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+              <div class="icon"><i class="bi bi-hospital"></i></div>
+              <h4 class="title"><a href="">Healthcare</a></h4>
+              <p class="description">Help individuals cover medical bills for surgeries, treatments, medications, and medical equipment.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+              <div class="icon">
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+                <i class="fas fa-book"></i></div>
+              <h4 class="title"><a href="">Education</a></h4>
+              <p class="description">Support educational initiatives such as scholarships, school supplies, and infrastructure development to ensure access to quality education for all.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+              <div class="icon">
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+                <i  class="fas fa-paw"></i></div>
+              <h4 class="title"><a href="">Animals</a></h4>
+              <p class="description">Assist animal shelters and rescue organizations in providing care, medical treatment, and rehoming for abandoned or injured animals.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+            <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+              <div class="icon">
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+                <i class="fas fa-leaf"></i></div>
+              <h4 class="title"><a href="">Enverement</a></h4>
+              <p class="description">Fund efforts to protect ecosystems, wildlife habitats, and natural resources through initiatives like reforestation, conservation projects, and sustainable development.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Featured Services Section -->
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>About</h2>
+          <h3>Find Out More <span>About Us</span></h3>
+          <p>At HopeBloom, we believe in the power of collective generosity to create positive change in the world.</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6 aos-init aos-animate" data-aos="fade-right" data-aos-delay="100">
+            <img src="static/assets/img/download.jpeg" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-left aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
+            <h3>we understand the importance of trust and accountability when it comes to charitable giving.</h3>
+            <p class="fst-italic" style="">
+        
+            </p>
+            <ul>
+              <li>
+                <i class="bi bi-clipboard2-check-fill"></i>
+                <div>
+                  <h5>Accountability</h5>
+                  <p>We carefully vet every charity and project to ensure transparency and ethical conduct.</p>
+                </div>
+              </li>
+              <li>
+                <i class="bi bi-balloon-heart"></i>
+                <div>
+                  <h5>Impact</h5>
+                  <p>We track and report on the outcomes of every project, so you can see the difference your donation makes.</p>
+                </div>
+              </li>
+              <li>
+                <i class="bi bi-person-lock"></i>
+                <div>
+                  <h5>Protection</h5>
+                  <p>Your security and privacy are our top priorities. We use advanced encryption technology to keep your information safe.</p>
+                </div>
+              </li>
+              <li>
+                <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+                <i class="fas fa-users"></i>
+                <div>
+                  <h5>Community </h5>
+                  <p>Join a community of like-minded individuals who share your passion for making a difference.</p>
+                </div>
+              </li>
+            </ul>
+            <p>
+              Join us and embrace the opportunity to be part of something meaningful. Together, let's empower change and create a brighter tomorrow
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+
+    <!-- ======= Counts Section ======= -->
+    <section id="counts" class="counts">
+      <div class="container" data-aos="fade-up">
+
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="bi bi-buildings"></i>
+              <span data-purecounter-start="0" data-purecounter-end="0" data-purecounter-duration="1" class="purecounter"></span>
+              <p> Associations</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+            <div class="count-box">
+              <i class="bi bi-journal-richtext"></i>
+              <span data-purecounter-start="0" data-purecounter-end="0" data-purecounter-duration="1" class="purecounter"></span>
+              <p>publications</p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box">
+              <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+              <i class="fas fa-th-large"></i>
+              <span data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Categories </p>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="count-box">
+              <i class="bi bi-cash-coin"></i>
+              <span data-purecounter-start="0" data-purecounter-end="0" data-purecounter-duration="1" class="purecounter"></span>
+              <p>Donations raised</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Counts Section -->
+
+
+    
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+          <div class="section-title">
+              <h2>Contact</h2>
+              <h3><span>Contact Us</span></h3>
+          </div>
+  
+          <div class="row" >
+              <div class="col-lg-3 col-md-6 " >
+                  <div class="info-box mb-4 d-flex align-items-center justify-content-center"> <!-- Added d-flex and align-items-center -->
+                      <i class="bx bx-envelope"></i>
+                      <div>
+                          <h3>Email Us</h3>
+                          <p>contact@example.com</p>
+                      </div>
+                  </div>
+              </div>
+  
+              <div class="col-lg-3 col-md-6 justify-content-end" >
+                  <div class="info-box mb-4 d-flex align-items-center justify-content-center"> <!-- Added d-flex and align-items-center -->
+                      <i class="bx bx-phone-call"></i>
+                      <div>
+                          <h3>Call Us</h3>
+                          <p>+212 611111111</p>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  
+      </div>
+    </section><!-- End Contact Section -->
+   
+
+
+  </main><!-- End #main -->
+
+  
+
+  
+
+  {% endblock content %}
+
+</body>
+
+</html>

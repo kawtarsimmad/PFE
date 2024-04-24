@@ -1,0 +1,11 @@
+{% extends 'base.html' %} 
+{%  block content %}
+
+    {% for x in dn %}
+        <h1> {{x.name}}</h1>
+        <h1> {{x.date}}</h1>
+        <h1> {{x.montantDons}}</h1>
+        <h1> {{x.numCpt}}</h1>
+
+    {% endfor %}
+{%  endblock content %}

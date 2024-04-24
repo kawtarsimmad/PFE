@@ -1,0 +1,12 @@
+{% extends 'base.html' %} 
+{%  block content %}
+
+    {% for x in pub %}
+        <h1> {{x.titre}}</h1>
+        <h1> {{y.contenu}}</h1>
+        <h1> {{x.image}}</h1>
+        <h1> {{x.montant}}</h1>
+        <h1> {{x.date}}</h1>
+
+    {% endfor %}
+{%  endblock content %}
