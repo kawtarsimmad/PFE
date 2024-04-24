@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from users.models import Donor, Association
+from users.models import Donor, Association, User
 
 # Create your models here.
 
@@ -9,6 +9,7 @@ class Reclamation(models.Model):
     RECLAMATION_TYPES = [
         ('Payment', 'Payment Issue'),
         ('Posts', 'Posts Issue'),
+        ('Other', 'Other Issue')
         # Add more types as needed
     ]
 
@@ -19,11 +20,10 @@ class Reclamation(models.Model):
         # Add more statuses as needed
     ]
 
-    donor = models.ForeignKey(Donor, on_delete=models.CASCADE)
-    association = models.ForeignKey(Association, on_delete=models.CASCADE)
-    recl_type = models.CharField(max_length=100, choices=RECLAMATION_TYPES)
-    description = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default="Donor")
+    recl_type = models.CharField(max_length=100, choices=RECLAMATION_TYPES,default="Other")
+    description = models.TextField(max_length=100, default="Your default description here")
     status = models.CharField(max_length=100, default='Pending')  # Status as a regular field
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     

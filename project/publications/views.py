@@ -2,14 +2,14 @@ from django.shortcuts import render
 from . models import Publication
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse,reverse_lazy
-from . forms import CRUDPUBFORM
+from .forms import CRUDPUBFORM
 
 
 def publication(request):
     return render(request, 'publications/publication.html')
 
 def publications(request):
-    return render(request, '/publications.html',{'pub ':Publication.objects.all()})
+    return render(request, 'publications/publications.html',{'pub ':Publication.objects.all()})
 
 class PubList(ListView):
     model = Publication
