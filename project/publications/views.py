@@ -12,6 +12,7 @@ def publications(request):
     return render(request, 'publications/publications.html',{'pub ':Publication.objects.all()})
 
 class PubList(ListView):
+
     model = Publication
     context_object_name= 'publications'
     template_name = 'publications/list.html'

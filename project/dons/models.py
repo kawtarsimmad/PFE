@@ -16,7 +16,7 @@ class Don(models.Model):
     #date=models.DateField(null=True)
     #time=models.TimeField(null=True)
     #creted=models.DateTimeField(null=True)
-    
+    objects = models.Manager() 
     
     def __str__(self) :
         return self.name

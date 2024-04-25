@@ -7,6 +7,7 @@ class CRUDPUBFORM(forms.ModelForm):
     image=forms.ImageField()
     montant=forms.DecimalField(max_digits=20,decimal_places=2, widget=forms.TextInput(attrs={'placeholder': 'Enter amount'}))
     category = forms.ModelChoiceField(queryset=Category.objects.all())
+    
     class Meta:
         model=Publication
         fields=['titre','contenu','image','montant', 'category']

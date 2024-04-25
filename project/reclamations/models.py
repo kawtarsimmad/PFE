@@ -25,5 +25,6 @@ class Reclamation(models.Model):
     description = models.TextField(max_length=100, default="Your default description here")
     status = models.CharField(max_length=100, default='Pending')  # Status as a regular field
     created_at = models.DateTimeField(default=timezone.now)
+    objects = models.Manager() 
 
     
