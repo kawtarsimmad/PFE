@@ -30,6 +30,7 @@ def create_reclamation(request):
         if form.is_valid():
             reclamation = form.save(commit=False)
             reclamation.user = request.user
+            reclamation.status = 'Pending'  # Set default status for admin-created reclamations
             reclamation.save()
             return redirect('view_reclamations')
     else:
@@ -41,4 +42,4 @@ def create_reclamation(request):
 @login_required
 def view_reclamations(request):
     reclamations = Reclamation.objects.filter(user=request.user)
-    return render(request, 'reclamation/reclamation_list.html', {'reclamations': reclamations})
+    return render(request, 'reclamations/view_reclamations.html', {'reclamations': reclamations})

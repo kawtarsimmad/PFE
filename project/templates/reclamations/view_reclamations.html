@@ -1,0 +1,5 @@
+<ul>
+    {% for reclamation in reclamations %}
+    <li>{{ reclamation.recl_type }} - {{ reclamation.description }} - {{ reclamation.created_at }} - {{ reclamation.status }}</li>
+    {% endfor %}
+</ul>

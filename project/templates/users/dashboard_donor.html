@@ -27,6 +27,24 @@
             <link href="https://fonts.googleapis.com/css?family=Great+Vibes|Open+Sans:400,700&display=swap&subset=latin-ext" rel="stylesheet">
             <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
         
+
+            <!-- Favicons -->
+        <link href="{% static  'assets/img/bloom-lg.png'%}" rel="icon">
+        <link href="{% static  'assets/img/apple-touch-icon.png'%}" rel="apple-touch-icon">
+          
+            <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+          
+            <!-- Vendor CSS Files -->
+        <link href="{% static  'assets/vendor/aos/aos.css'%}" rel="stylesheet">
+        <link href="{% static  'assets/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+        <link href="{% static  'assets/vendor/bootstrap-icons/bootstrap-icons.css'%}" rel="stylesheet">
+        <link href="{% static  'assets/vendor/boxicons/css/boxicons.min.css'%}" rel="stylesheet">
+        <link href="{% static  'assets/vendor/glightbox/css/glightbox.min.css'%}" rel="stylesheet">
+        <link href="{% static  'assets/vendor/swiper/swiper-bundle.min.css'%}" rel="stylesheet">
+            
+            <!-- Template Main CSS File -->
+        <link rel="stylesheet" type="text/css" href="{% static  'assets/css/style.css' %}" >
         <title> Espace donor  </title>
     </head>
    
@@ -78,6 +96,14 @@
                 </li>
                 <li class="nav-item">
                     <a href="{% url 'dashboard_donor' %}" class="nav-link "><i class="fa-solid fa-address-card"></i>Personal Space</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></i>Reclamations</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{%url 'create_reclamation' %}">Ctreate Reclamation</a></li>
+                        <li><a class="dropdown-item" href="{%url 'reclamations' %}">List Reclamation</a></li>
+                    </ul>
                 </li>
 
                 <li class="nav-item">
