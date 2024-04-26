@@ -1,7 +1,7 @@
 from django import forms
 from .models import Publication,Category
 
-class CRUDPUBFORM(forms.ModelForm):
+class PublicationForm(forms.ModelForm):
     titre=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control",'placeholder':'titre'}))
     contenu=forms.CharField(widget=forms.Textarea(attrs={"class":"form-control",'placeholder':'contenu'}))
     image=forms.ImageField()

@@ -1,12 +1,10 @@
-{% extends 'base.html' %} 
 {%  block content %}
     <br>
     <br>
     <br>
-    <h1>list category</h1>
+    <h1>liste des reclamations </h1>
     {% for x in rc %}
         <h1> {{x.description}}</h1>
-        <h1> {{x.date}}</h1>
         <h1> {{x.created_at}}</h1>
         <h1> {{x.status}}</h1>
         <h1> {{x.recl_type}}</h1>

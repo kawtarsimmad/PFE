@@ -1,15 +1,15 @@
 from django.urls import path
 from . import views
-from .views import PubList,PubDetail,PubCreate,PubUpdate,PubDelete
+from .views import PubList,PubCreate,PubDetail,PubUpdate,PubDelete
 
 urlpatterns = [
     path('publication/',views.publication,name='publication'),
     path('publications/',views.publications,name='publications'),
-    path('list/',PubList.as_view(),name='list'),
-    path('detail/<int:pk>/',PubDetail.as_view(),name='detail'),
-    path('create/',PubCreate.as_view(),name='create'),
-    path('update/<int:pk>/',PubUpdate.as_view(),name='update'),
-    path('delete/<int:pk>/',PubDelete.as_view(),name='delete'),
+    path('PubList/',views.PubList,name='PubList'),
+    path('detail/<int:pk>/',views.PubDetail,name='detail'),
+    path('create/',views.PubCreate,name='create'),
+    path('update/<int:pk>/',views.PubUpdate,name='update'),
+    path('delete/<int:pk>/',views.PubDelete,name='delete'),
 
 
 ]

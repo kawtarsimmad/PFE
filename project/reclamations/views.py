@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from . models import Reclamation
 from django.contrib.auth.decorators import login_required
 from .models import Reclamation
 from .forms import ReclamationForm

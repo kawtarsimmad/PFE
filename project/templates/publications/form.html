@@ -1,8 +1,8 @@
-<h1> form de publication </h1>
+<h1> Create publication </h1>
 
 <br>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %} 
     {{form.as_p}}
-    <input type="submit"class="btn btn-outline-success">
+    <button type="submit">Submit</button>
 </form>   

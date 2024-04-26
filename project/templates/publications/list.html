@@ -2,16 +2,16 @@
 <br>
 <a href="{% url 'create' %}"  >Create</a>
 <br>
-{% if request.user.is_authenticated %}
+<br>
+<br>
     {% if publications %}
         {% for p in publications %}
             <a href="{% url 'detail' p.id  %}"  >{{p.titre}}</a>
             <a href="{% url 'update' p.id  %}"  >Update</a>
             <a href="{% url 'delete' p.id  %}"  >Delete</a>
+            <br>
+            <br>
         {% endfor %} 
         {% else %}
         <p> Sorry no pending posts </p>
     {% endif %}
-{% else %}
-    <p> must connect </p>
-{% endif %}

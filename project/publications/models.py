@@ -10,7 +10,7 @@ class Publication(models.Model):
     titre=models.CharField(max_length=150)
     contenu=models.TextField()
     date=models.DateTimeField(default=timezone.now)
-    image=models.ImageField(upload_to='photos/%y/%m/%d')
+    image=models.ImageField(upload_to='photos/%y/%m/%d', blank=True)
     montant=models.DecimalField(max_digits=20,decimal_places=2)
     user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE,null=True,blank=True)
