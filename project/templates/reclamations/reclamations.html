@@ -1,13 +1,12 @@
 {%  block content %}
     <br>
     <br>
+    <h1>liste des reclamations</h1>
     <br>
-    <h1>liste des reclamations </h1>
+    <ul> 
     {% for x in rc %}
-        <h1> {{x.description}}</h1>
-        <h1> {{x.created_at}}</h1>
-        <h1> {{x.status}}</h1>
-        <h1> {{x.recl_type}}</h1>
+        <li> {{x.recl_type}} - {{x.description}} - {{x.created_at}} - {{x.status}}</li>
         <br>
     {% endfor %}
+    </ul>
 {%  endblock content %}
