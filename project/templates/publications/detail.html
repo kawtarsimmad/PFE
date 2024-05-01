@@ -1,6 +1,7 @@
 <h1> Details de publication </h1>
-<!-- publication_detail.html -->
-<h1>{{ publication.titre }}</h1>
+
+<p>{{ publication.user.first_name }}</p>
+<p>{{ publication.titre }}</p>
 <p>{{ publication.contenu }}</p>
 <img src="{{ publication.image.url }}" alt="{{ publication.titre }}">
 <p>{{ publication.montant }}</p>

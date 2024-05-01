@@ -1,14 +1,11 @@
-{% extends 'base.html' %} 
 {%  block content %}
     <br>
-    <br>
-    <br>
-    <h1>list pub </h1>
-    {% for x in dn %}
-        <h1> {{x.name}}</h1>
-        <h1> {{x.date}}</h1>
-        <h1> {{x.montantDons}}</h1>
-        <h1> {{x.numCpt}}</h1>
-        <br>
+    <h1>liste des dons  </h1>
+    {% for y in dn %}
+        <p> {{y.id}}</p>
+        <p> {{y.user.first_name}}</p>
+        <p> {{y.date}}</p>
+        <p> {{y.montantDons}}</p>
+        <p> {{y.est_paye}}</p>
     {% endfor %}
 {%  endblock content %}

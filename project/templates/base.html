@@ -55,22 +55,30 @@
                       </ul>
                          
                     </li>
-                    <li>
-                      <a class="nav-link" role="button" href="{%url 'DonorSignIn' %}">Log In</a>
+                    {% if user.is_authenticated %}
+                        {%if user.is_donor%}
+                          <li><a class="nav-link" href="{% url 'dashboard_donor'%}">{{ user.first_name }}</a></li>
+                          {%elif user.is_association%}
+                            <li><a class="nav-link" href="{% url 'dashboard_association'%}">{{ user.first_name }}</a></li>
+                          {%else%}
+                            <li><a class="nav-link" href="{% url 'dashboardAdmin'%}">{{ user.first_name }}</a></li>
+                        {% endif %}
+                    {% else %}
+                      <li>
+                        <a class="nav-link" role="button" href="{%url 'DonorSignIn' %}">Log In</a>
+                      </li>
 
-                    </li>
-
-                    
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Sign up
-                      </a>
-                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{%url 'DonorSignup' %}">As Donor</a></li>
-                        <li><a class="dropdown-item" href="{%url 'AssociationSignup' %}">As Association</a></li>
-                        <li><a class="dropdown-item" href="{%url 'signupadmin' %}">As Admin</a></li>
-                      </ul>
-                    </li>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Sign up
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <li><a class="dropdown-item" href="{% url 'DonorSignup' %}">As Donor</a></li>
+                          <li><a class="dropdown-item" href="{% url 'AssociationSignup' %}">As Association</a></li>
+                          <li><a class="dropdown-item" href="{% url 'signupadmin' %}">As Admin</a></li>
+                        </ul>
+                      </li>
+                    {% endif%}
                 </ul>
                 
                 <i class="bi mobile-nav-toggle bi-list">

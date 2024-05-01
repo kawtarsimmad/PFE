@@ -1,0 +1,14 @@
+<h1>Liste de dons</h1>
+<br>
+    <a href="{% url 'faire_don' %}" class="btn btn-primary">faire un Don</a>
+    <br>
+
+{% if dons %}
+    <ul>
+        {% for don in dons %}
+        <li>{{ don.id }} - {{ don.user.first_name }} - {{ don.montantDons }}- {{ don.date }} - {{ don.est_paye }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Sorry, no pending dons.</p>
+{% endif %}
