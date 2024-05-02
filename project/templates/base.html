@@ -27,6 +27,13 @@
             <!-- Template Main CSS File -->
         <link rel="stylesheet" type="text/css" href="{% static  'assets/css/style.css' %}" >
 
+        <style>
+          /* Increase the size of the navbar icon */
+          #navbar .nav-link i {
+              font-size: 24px; /* Adjust the size as needed */
+              margin-right: 5px; /* Optional: Add some spacing */
+          }         
+        </style>
     </head>
     <body>
            
@@ -43,6 +50,7 @@
               <!-- Fixed navbar-->
             <nav id="navbar" class="navbar">
                 <ul>
+                   
                     <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
                     <li><a class="nav-link scrollto" href="#about">About</a></li>
                     <li class="nav-item dropdown">
@@ -52,16 +60,15 @@
                         <li><a class="dropdown-item" href="#featured-services">Education</a></li>
                         <li><a class="dropdown-item" href="#featured-services">children</a></li>
                         <li><a class="dropdown-item" href="#featured-services">Environment</a></li>
-                      </ul>
-                         
+                      </ul>   
                     </li>
                     {% if user.is_authenticated %}
                         {%if user.is_donor%}
-                          <li><a class="nav-link" href="{% url 'dashboard_donor'%}">{{ user.first_name }}</a></li>
+                          <li><a class="nav-link" href="{% url 'dashboard_donor'%}"><i class="bi bi-person-circle"></i></a></li>
                           {%elif user.is_association%}
-                            <li><a class="nav-link" href="{% url 'dashboard_association'%}">{{ user.first_name }}</a></li>
+                            <li><a class="nav-link" href="{% url 'dashboard_association'%}"><i class="bi bi-person-circle"></i></a></li>
                           {%else%}
-                            <li><a class="nav-link" href="{% url 'dashboardAdmin'%}">{{ user.first_name }}</a></li>
+                            <li><a class="nav-link" href="{% url 'dashboardAdmin'%}">{<i class="bi bi-person-circle"></i></a></li>
                         {% endif %}
                     {% else %}
                       <li>
@@ -159,6 +166,14 @@
     <script src="{% static 'assets/vendor/waypoints/noframework.waypoints.js'%}"></script>
     <script src="{% static 'assets/vendor/php-email-form/validate.js'%}"></script>
 
+    <script>
+      const searchButton = document.getElementById('search-button');
+      const searchInput = document.getElementById('search-input');
+      searchButton.addEventListener('click', () => {
+        const inputValue = searchInput.value;
+        alert(inputValue);
+      });
+   </script>
 
      <!-- Template Main JS File -->
      <script src="{% static 'assets/js/main.js'%}"></script>    
