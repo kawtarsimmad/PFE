@@ -72,70 +72,99 @@
 
 <body>
 
-<!-- Sidebar -->
-<div class="sidebar">
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link text-white" href="/"><i class="fas fa-home me-2"></i>Accueil</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" href="{% url 'dashboardAdmin' %}"><i class="bi bi-person-workspace"></i></i> Espace personnel</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" href="{% url 'donors' %}"><i class="fas fa-user me-2"></i>Donors</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" href="{% url 'associations' %}"><i class="fas fa-users me-2"></i>Associations</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" href="{% url 'dons' %}"><i class="fas fa-donate me-2"></i>Dons</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" href="{% url 'PubList' %}"><i class="bi bi-journals me-2"></i>Publications</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" href="{% url 'reclamations' %}"><i class="bi bi-chat-right-dots me-2"></i>Reclamations</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Se déconnecter</a>
-        </li>
-    </ul>
-</div>
-
-
-{% block content %}
-    <!-- Main Content -->
-    <div class="main-content">
-        <br>
-        <br>
-        <h1>Liste des réclamations</h1>
-        <br>
-        <div class="table-responsive mt-4">
-            <table class="table table-bordered table-hover">
-                <thead class="thead-dark">
-                    <tr>
-                        <th style="text-align: center">Type</th>
-                        <th style="text-align: center">Description</th>
-                        <th style="text-align: center">Créé à</th>
-                        <th style="text-align: center">Statut</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for x in rc %}
-                    <tr>
-                        <td style="text-align: center">{{ x.recl_type }}</td>
-                        <td style="text-align: center">{{ x.description }}</td>
-                        <td style="text-align: center">{{ x.created_at }}</td>
-                        <td style="text-align: center">{{ x.status }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/"><i class="fas fa-home me-2"></i>Accueil</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'dashboardAdmin' %}"><i class="bi bi-person-workspace"></i></i> Espace personnel</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'donors' %}"><i class="fas fa-user me-2"></i>Donors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'associations' %}"><i class="fas fa-users me-2"></i>Associations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'dons' %}"><i class="fas fa-donate me-2"></i>Dons</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'publications' %}"><i class="bi bi-journals me-2"></i>Publications</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'reclamations' %}"><i class="bi bi-chat-right-dots me-2"></i>Reclamations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Se déconnecter</a>
+            </li>
+        </ul>
     </div>
-{% endblock content %}
 
-<!-- Bootstrap JS Bundle (Popper.js included) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    {% block content %}
+        <!-- Main Content -->
+        <div class="main-content">
+            <br>
+            <br>
+            <h1>Liste des réclamations</h1>
+            <br>
+            <div class="table-responsive mt-4">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th style="text-align: center">Type </th>
+                            <th style="text-align: center">Demandeur</th>
+                            <th style="text-align: center">Description</th>
+                            <th style="text-align: center">Date de Création</th>
+                            <th style="text-align: center">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for x in rc %}
+                        <tr>
+                            <td style="text-align: center">{{ x.recl_type }}</td>
+                            <td style="text-align: center">{{ x.user.first_name }}</td>
+                            <td style="text-align: center">{{ x.description }}</td>
+                            <td style="text-align: center">{{ x.created_at }}</td>
+                            <td style="text-align: center">
+                                <form id="updateStatusForm_{{ x.id }}" method="post" action="{% url 'update_reclamation_status' x.id %}" style="display: inline;">
+                                    {% csrf_token %}
+                                    <select name="status" onchange="submitForm({{ x.id }})">
+                                        <option value="Pending" {% if x.status == "Pending" %} selected {% endif %}> Pending </option>
+                                        <option value="Resolved" {% if x.status == "Resolved" %} selected {% endif %}> Resolved </option>
+                                        <option value="Refused" {% if x.status == "Refused" %} selected {% endif %}> Refused </option>
+                                    </select>
+                                </form>
+                            </td>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endblock content %}
+
+    <!-- Bootstrap JS Bundle (Popper.js included) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function submitForm(reclamationId) {
+            var formId = "updateStatusForm_" + reclamationId;
+            var form = document.getElementById(formId);
+            var formData = new FormData(form);
+    
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", form.action, true);
+            xhr.setRequestHeader("X-CSRFToken", formData.get("csrfmiddlewaretoken"));
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // La requête a été traitée avec succès, vous pouvez mettre à jour l'affichage si nécessaire
+                    console.log("Statut mis à jour avec succès !");
+                }
+            };
+            xhr.send(formData);
+        }
+    </script>
+
 </body>
 </html>

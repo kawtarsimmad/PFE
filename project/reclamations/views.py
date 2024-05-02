@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Reclamation
 from .forms import ReclamationForm
@@ -42,3 +42,35 @@ def create_reclamation(request):
 def view_reclamations(request):
     reclamations = Reclamation.objects.filter(user=request.user)
     return render(request, 'reclamations/view_reclamations.html', {'reclamations': reclamations})
+
+
+@login_required
+def delete_reclamation(request, reclamation_id):
+    reclamation = get_object_or_404(Reclamation, id=reclamation_id)
+    if request.method == 'POST':
+        reclamation.delete()
+        return redirect('view_reclamations')
+    return render(request, 'reclamations/delete_reclamation.html', {'reclamation': reclamation})
+
+
+@login_required
+def update_reclamation(request, reclamation_id):
+    reclamation = get_object_or_404(Reclamation, id=reclamation_id)
+    if request.method == 'POST':
+        form = ReclamationForm(request.POST, instance=reclamation)
+        if form.is_valid():
+            form.save()
+            return redirect('view_reclamations')
+    else:
+        form = ReclamationForm(instance=reclamation)
+    return render(request, 'reclamations/update_reclamation.html', {'form': form})
+
+@login_required
+def update_reclamation_status(request, reclamation_id):
+    reclamation = get_object_or_404(Reclamation, id=reclamation_id)
+    if request.method == 'POST':
+        new_status = request.POST.get('status')
+        reclamation.status = new_status
+        reclamation.save()
+        return redirect('reclamations')
+    return render(request, 'reclamations/update_reclamation_status.html', {'reclamation': reclamation})

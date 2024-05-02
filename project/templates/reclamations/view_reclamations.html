@@ -159,7 +159,7 @@
             </a></li>
             {%elif user.is_association%}
                 <li class="nav-item"><a class="nav-link" href="{% url 'PubList'%}">
-                    <i class="bi bi-journals me-2"></i>Publications
+                    <i class="bi bi-journals me-2"></i>Mes Publications
                 </a></li>
             {% endif %}
             {% endif %}
@@ -168,7 +168,7 @@
             {% if user.is_authenticated %}
             {%if user.is_donor%}
             <li class="nav-item">
-                <a class="nav-link text-white" href="{% url 'viewDons' %}"><i class="fas fa-donate me-2"></i>Dons</a>
+                <a class="nav-link text-white" href="{% url 'viewDons' %}"><i class="fas fa-donate me-2"></i>Mes Dons</a>
             </li>
             {% endif %}
             {% endif %}
@@ -197,8 +197,9 @@
                 <tr>
                     <th scope="col">Type</th>
                     <th scope="col">Description</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Statut</th>
+                    <th scope="col">Date de Création</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -208,6 +209,10 @@
                     <td>{{ reclamation.description }}</td>
                     <td>{{ reclamation.created_at }}</td>
                     <td>{{ reclamation.status }}</td>
+                    <td style="text-align: center">
+                        <a href="{% url 'update_reclamation' reclamation.id %}" class="btn btn-info"><i class="fas fa-pencil-alt"></i> Update</a>
+                        <a href="{% url 'delete_reclamation' reclamation.id %}" class="btn btn-danger"><i class="fas fa-trash"></i> Delete</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

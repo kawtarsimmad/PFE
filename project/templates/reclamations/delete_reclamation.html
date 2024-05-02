@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation de suppression</title>
+</head>
+<body>
+    <h1>Suppression de la réclamation {{ reclamation.id }}</h1>
+    <p>Êtes-vous sûr de vouloir supprimer cette réclamation ?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirmer</button>
+    </form>
+</body>
+</html>
