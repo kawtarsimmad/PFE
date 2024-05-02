@@ -48,9 +48,14 @@ def PubUpdate(request, pk):
     publication = get_object_or_404(Publication, pk=pk)
     if request.method == 'POST':
         form = PublicationForm(request.POST, request.FILES, instance=publication)
+        user=request.user
         if form.is_valid():
             form.save()
-            return redirect('PubList')
+            if user.is_admin:
+                  return redirect('publications')
+            elif user.is_association:
+                 return redirect('PubList')
+               
     else:
         form = PublicationForm(instance=publication)
     return render(request, 'publications/form.html', {'form': form})
@@ -59,9 +64,13 @@ def PubUpdate(request, pk):
 @login_required
 def PubDelete(request, pk):
     publication = get_object_or_404(Publication, pk=pk)
+    user=request.user
     if request.method == 'POST':
         publication.delete()
-        return redirect('PubList')
+        if user.is_admin:
+            return redirect('publications')
+        elif user.is_association:
+            return redirect('PubList')
     return render(request, 'publications/delete.html', {'publication': publication})
     
 
