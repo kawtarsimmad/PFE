@@ -9,7 +9,7 @@ urlpatterns = [
     path('detail/<int:pk>/',views.PubDetail,name='detail'),
     path('create/',views.PubCreate,name='create'),
     path('update/<int:pk>/',views.PubUpdate,name='update'),
-    path('delete/<int:pk>/',views.PubDelete,name='delete'),
+    path('delete/<int:publication_id>/',views.PubDelete,name='delete'),
 
 
 ]

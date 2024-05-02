@@ -61,9 +61,9 @@ def PubUpdate(request, pk):
     return render(request, 'publications/form.html', {'form': form})
 
 
-@login_required
-def PubDelete(request, pk):
-    publication = get_object_or_404(Publication, pk=pk)
+
+def PubDelete(request, publication_id):
+    publication = get_object_or_404(Publication, pk=publication_id)
     user=request.user
     if request.method == 'POST':
         publication.delete()
@@ -71,7 +71,7 @@ def PubDelete(request, pk):
             return redirect('publications')
         elif user.is_association:
             return redirect('PubList')
-    return render(request, 'publications/delete.html', {'publication': publication})
+    return render(request, 'publications/publications.html', {'publication': publication})
     
 
 

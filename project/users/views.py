@@ -22,6 +22,9 @@ from django.utils.encoding import force_bytes
 import codecs
 from django.contrib.auth.password_validation import validate_password
 from django.http import HttpResponseForbidden
+
+from django.shortcuts import render, redirect, get_object_or_404
+
 #
 class HomeView(TemplateView):
     template_name = 'users/home.html'
@@ -274,3 +277,102 @@ def custom_logout(request):
     logout(request)
     print(request.user)
     return HttpResponseRedirect('/')  #direction  home
+
+####################### Ajouter et modifier users #####################
+###### Donor ############
+def add_donor(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        password = request.POST.get('password')  # Retrieve the password from the form
+
+
+        # Create a new user and donor
+        user = User.objects.create_user(username=email, email=email, password=password, first_name=name)
+        donor = Donor.objects.create(user=user, phone_number=phone_number)
+
+        return redirect('donors')
+
+    return render(request, 'users/add_donor.html')
+
+def update_donor(request, donor_id):
+    donor = get_object_or_404(Donor, id=donor_id)
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+
+        donor.user.first_name = name
+        donor.user.email = email
+        donor.phone_number = phone_number
+        donor.user.save()
+        donor.save()
+
+        return redirect('donors')
+
+    return render(request, 'users/update_donor.html', {'donor': donor})
+
+def delete_donor(request, donor_id):
+    donor = get_object_or_404(Donor, pk=donor_id)    
+    donor.delete()
+    return redirect('donors')
+
+##### Association ########################
+
+
+def add_association(request, association_id=None):
+    if association_id:
+        association = get_object_or_404(Association, id=association_id)
+    else:
+        association = None
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        stat_juridique = request.POST.get('stat_juridique')
+        password = request.POST.get('password')  # Retrieve the password from the form
+
+
+        if association:
+            association.user.first_name = name
+            association.user.email = email
+            association.phone_number = phone_number
+            association.stat_juridique = stat_juridique
+            association.user.save()
+            association.save()
+        else:
+            user = User.objects.create_user(username=email, email=email, password=password, first_name=name)
+            association = Association.objects.create(user=user, phone_number=phone_number, stat_juridique=stat_juridique)
+
+        return redirect('associations')
+
+    return render(request, 'users/add_association.html', {'association': association})
+
+def update_association(request, association_id):
+    association = get_object_or_404(Association, id=association_id)
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone_number = request.POST.get('phone_number')
+        stat_juridique = request.POST.get('stat_juridique')
+
+        association.user.first_name = name
+        association.user.email = email
+        association.phone_number = phone_number
+        association.stat_juridique = stat_juridique
+        association.user.save()
+        association.save()
+
+        return redirect('associations')
+
+    return render(request, 'users/update_association.html', {'association': association})
+
+def delete_association(request, association_id):
+    association = Association.objects.get(pk=association_id)
+    association.delete()
+    return redirect('associations')
+
