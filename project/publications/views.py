@@ -67,13 +67,11 @@ def PubUpdate(request, pk):
 def PubDelete(request, publication_id):
     publication = get_object_or_404(Publication, pk=publication_id)
     user=request.user
-    if request.method == 'POST':
-        publication.delete()
-        if user.is_admin:
+    publication.delete()
+    if user.is_admin:
             return redirect('publications')
-        elif user.is_association:
+    elif user.is_association:
             return redirect('PubList')
-    return redirect('publications')
     
 
 

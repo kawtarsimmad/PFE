@@ -47,10 +47,8 @@ def view_reclamations(request):
 @login_required
 def delete_reclamation(request, reclamation_id):
     reclamation = get_object_or_404(Reclamation, id=reclamation_id)
-    if request.method == 'POST':
-        reclamation.delete()
-        return redirect('view_reclamations')
-    return render(request, 'reclamations/delete_reclamation.html', {'reclamation': reclamation})
+    reclamation.delete()
+    return redirect('view_reclamations')
 
 
 @login_required
