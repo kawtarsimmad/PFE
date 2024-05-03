@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse,reverse_lazy
 from . models import Publication
 from .forms import PublicationForm
+from django.http import HttpResponse
+from django.http import JsonResponse
 
 
 def publication(request):
@@ -61,7 +63,7 @@ def PubUpdate(request, pk):
     return render(request, 'publications/form.html', {'form': form})
 
 
-
+@login_required
 def PubDelete(request, publication_id):
     publication = get_object_or_404(Publication, pk=publication_id)
     user=request.user
@@ -71,7 +73,7 @@ def PubDelete(request, publication_id):
             return redirect('publications')
         elif user.is_association:
             return redirect('PubList')
-    return render(request, 'publications/publications.html', {'publication': publication})
+    return redirect('publications')
     
 
 
