@@ -1,6 +1,10 @@
 from django.shortcuts import render,redirect
 from . models import Don
 from .forms import PaiementForm
+#from paypal.standard.forms import PayPalPaymentsForm
+from django.conf import settings
+import uuid
+from django.urls import reverse
 
 def don(request):
     return render(request, 'dons/don.html')
@@ -32,3 +36,4 @@ def succes(request):
 def viewDons(request):
     dons = Don.objects.filter(user=request.user)
     return render(request, 'dons/viewDons.html', {'dons': dons})
+

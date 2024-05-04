@@ -25,6 +25,8 @@ urlpatterns = [
     path('publications/', include('publications.urls')),
     path('reclamations/', include('reclamations.urls')),
     path('categories/', include('categories.urls')),
+    path('paypal', include('paypal.standard.ipn.urls')),
+
 
 
 ]

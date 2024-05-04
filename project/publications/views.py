@@ -5,6 +5,10 @@ from . models import Publication
 from .forms import PublicationForm
 from django.http import HttpResponse
 from django.http import JsonResponse
+from paypal.standard.forms import PayPalPaymentsForm
+from django.conf import settings
+import uuid
+from django.urls import reverse
 
 
 def publication(request):
@@ -21,6 +25,10 @@ def publications(request):
     publications = Publication.objects.all()
     return render(request, 'publications/publications.html', {'publications': publications})
 
+
+def publicationView(request):
+    publications = Publication.objects.all()
+    return render(request, 'publications/pub.html', {'publications': publications})
 
 
 
@@ -82,3 +90,41 @@ def PubList(request):
     publications = Publication.objects.filter(user=request.user)
     return render(request, 'publications/list.html', {'publications': publications})
 
+
+def CheckOut(request, publication_id):
+
+    publication = Publication.objects.get(id=publication_id)
+
+    host = request.get_host()
+
+    paypal_checkout = {
+        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': publication.montant,
+        'item_name': publication.titre,
+        'invoice': uuid.uuid4(),
+        'currency_code': 'USD',
+        'notify_url': f"http://{host}{reverse('paypal-ipn')}",
+        'return_url': f"http://{host}{reverse('payment-success', kwargs = {'publication_id': publication.id})}",
+        'cancel_url': f"http://{host}{reverse('payment-failed', kwargs = {'publication_id': publication.id})}",
+    }
+
+    paypal_payment = PayPalPaymentsForm(initial=paypal_checkout)
+
+    context = {
+        'publication': publication,
+        'paypal': paypal_payment
+    }
+
+    return render(request, 'publications/checkout.html', context)
+
+def PaymentSuccessful(request, publication_id):
+
+    publication = Publication.objects.get(id=publication_id)
+
+    return render(request, 'publications/payment-success.html', {'publication': publication})
+
+def paymentFailed(request, publication_id):
+
+    publication = Publication.objects.get(id=publication_id)
+
+    return render(request, 'publications/payment-failed.html', {'publication': publication})

@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import PubList,PubCreate,PubDetail,PubUpdate,PubDelete
+
 
 urlpatterns = [
     path('publication/',views.publication,name='publication'),
@@ -10,5 +10,10 @@ urlpatterns = [
     path('create/',views.PubCreate,name='create'),
     path('update/<int:pk>/',views.PubUpdate,name='update'),
     path('delete/<int:publication_id>/', views.PubDelete, name='delete'),
+    path('checkout/<int:publication_id>/', views.CheckOut, name='checkout'),
+    path('payment-success/<int:publication_id>/', views.PaymentSuccessful, name='payment-success'),
+    path('payment-failed/<int:publication_id>/', views.paymentFailed, name='payment-failed'),
+    path('publicationView/',views.publicationView,name='publicationView'),
+
 
 ]

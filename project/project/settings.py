@@ -47,6 +47,8 @@ INSTALLED_APPS = [
 
     # Third-party
          'crispy_forms',
+         'paypal.standard.ipn',
+        
 
 ]
 
@@ -144,3 +146,5 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     # ... d'autres backends si nécessaire
 ]
+PAYPAL_RECEIVER_EMAIL = 'sb-association@gmail.com' # where cash is paid into
+PAYPAL_TEST = True
