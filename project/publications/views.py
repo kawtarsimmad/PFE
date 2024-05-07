@@ -25,6 +25,9 @@ def publications(request):
     publications = Publication.objects.all()
     return render(request, 'publications/publications.html', {'publications': publications})
 
+def publicationIndex(request):
+    publications = Publication.objects.all()
+    return render(request, 'publications/publicationIndex.html', {'publications': publications})
 
 def publicationView(request):
     publications = Publication.objects.all()

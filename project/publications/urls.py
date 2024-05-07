@@ -14,6 +14,7 @@ urlpatterns = [
     path('payment-success/<int:publication_id>/', views.PaymentSuccessful, name='payment-success'),
     path('payment-failed/<int:publication_id>/', views.paymentFailed, name='payment-failed'),
     path('publicationView/',views.publicationView,name='publicationView'),
+    path('publicationIndex/',views.publicationIndex,name='publicationIndex'),
 
 
 ]

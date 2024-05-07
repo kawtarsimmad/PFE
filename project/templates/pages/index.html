@@ -20,7 +20,7 @@
   <main id="main">
 
     <!-- ======= Posts Section ======= -->
-    <section id="latest-publications" class="latest-publications">
+    <section id="latest-publications" class="services">
       <div class="container" data-aos="fade-up">
         <div class="section-title">
           <h2>Latest Publications</h2>
@@ -29,8 +29,8 @@
         <div class="row">
           {% if publications %}
             {% for publication in publications %}
-              <div class="col-md-6 col-lg-4 d-flex align-items-stretch mb-5">
-                <div class="card" data-aos="fade-up" data-aos-delay="100">
+             <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+              <div class="card" data-aos="fade-up" data-aos-delay="100">
                   <img src="{{ publication.image.url }}" class="card-img-top" alt="{{ publication.titre }}">
                   <div class="card-body">
                     <h5 class="card-title">{{ publication.titre }}</h5>
@@ -45,11 +45,9 @@
           {% endif %}
         </div>
 
-        {% if publications %}
           <div class="text-center mt-4">
-            <a href="{% url 'publications' %}" class="btn btn-primary">View All Publications</a>
+            <a href="{% url 'publicationIndex' %}" class="btn btn-primary">View All Publications</a>
           </div>
-        {% endif %}
       </div>
     </section>
     <!-- End Posts Section -->
