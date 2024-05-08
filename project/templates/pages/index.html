@@ -31,7 +31,7 @@
             {% for publication in publications %}
               <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
                 <div class="card" data-aos="fade-up" data-aos-delay="100">
-                  <img src="{{ publication.image.url }}" class="card-img-top" alt="{{ publication.titre }}">
+                  <img src="{{ MEDIA_URL }}{{ publication.image.url }}" class="card-img-top" alt="{{ publication.titre }}">
                   <div class="card-body">
                     <h5 class="card-title">{{ publication.titre }}</h5>
                     <p class="card-text">{{ publication.contenu | truncatechars:150 }}</p>
