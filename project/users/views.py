@@ -203,7 +203,7 @@ def associations(request):
         
     }
     return render (request,'users/associations.html',context)
- 
+
 #####################/ Association /#############################
 
 ###################  admin  ####################
