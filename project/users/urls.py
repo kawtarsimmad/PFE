@@ -33,7 +33,8 @@ urlpatterns = [
     path('add_association/', views.add_association, name='add_association'),
     path('update_association/<int:association_id>/', views.update_association, name='update_association'),
     path('delete_association/<int:association_id>/', views.delete_association, name='delete_association'),
-    
+  
+
 
 ]
 if settings.DEBUG:

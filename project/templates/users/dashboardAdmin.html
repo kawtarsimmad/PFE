@@ -81,6 +81,8 @@
         <li class="nav-item">
             <a class="nav-link text-white" href="{% url 'reclamations' %}"><i class="bi bi-chat-right-dots me-2"></i>Reclamations</a>
         </li>
+        
+        
         <li class="nav-item">
             <a class="nav-link text-white" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-2"></i>Se déconnecter</a>
         </li>
@@ -107,6 +109,7 @@
                 <div class="col-md-9">
                     <div class="mb-3"><span class="fw-bold me-2"><i class="fas fa-user me-1"></i>Nom :</span>{{ admin.user.first_name }}</div>
                     <div><span class="fw-bold me-2"><i class="fas fa-envelope me-1"></i>Email :</span>{{ admin.user.email }}</div>
+                    <div class="mb-3"><span class="fw-bold me-2"><i class="fas fa-lock me-1"></i>Mot de passe :</span>{{ admin.user.password }}</div>
                 </div>
             </div>
         </div>

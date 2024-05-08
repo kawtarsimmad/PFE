@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 # Create your views here.
 from django.views.generic import TemplateView 
 from django.urls import reverse_lazy
@@ -103,11 +103,9 @@ def donors(request):
     user = request.user
     admin = Admin.objects.filter(user=user).first()
     donors=Donor.objects.all()
-    associations=Association.objects.all()
     context ={
         'admin': admin,
         'donors': donors,
-        'associations':associations,
         
     }
     return render (request,'users/donors.html',context)
@@ -194,11 +192,9 @@ def dashboard_association(request):
 def associations(request):
     user = request.user
     admin = Admin.objects.filter(user=user).first()
-    donors=Donor.objects.all()
     associations=Association.objects.all()
     context ={
         'admin': admin,
-        'donors': donors,
         'associations':associations,
         
     }
@@ -375,4 +371,5 @@ def delete_association(request, association_id):
     association = Association.objects.get(pk=association_id)
     association.delete()
     return redirect('associations')
+
 
