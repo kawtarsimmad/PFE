@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+# To keep secret keys in environment variables
+from dotenv import load_dotenv
+
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -44,7 +48,7 @@ INSTALLED_APPS = [
     'reclamations.apps.ReclamationsConfig',
     'users.apps.UsersConfig',
     'categories.apps.CategoriesConfig',
-
+     'social_django',
     # Third-party
          'crispy_forms',
          'paypal.standard.ipn',
@@ -75,6 +79,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -148,3 +155,17 @@ AUTHENTICATION_BACKENDS = [
 ]
 PAYPAL_RECEIVER_EMAIL = 'sb-association@gmail.com' # where cash is paid into
 PAYPAL_TEST = True
+
+# social auth configs for google
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = str(os.getenv('GOOGLE_KEY'))
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = str(os.getenv('GOOGLE_SECRET'))
+
+# email configs
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ghofranhala2@gmail.com'
+EMAIL_HOST_PASSWORD = 'dbea edbc rndq ilpf'
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30

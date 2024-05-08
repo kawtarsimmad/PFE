@@ -1,9 +1,12 @@
-from django.urls import path
+from django.urls import path, include, re_path
 from .views import HomeView
 from .views import custom_logout 
 from django.conf.urls.static import static
 from django.conf import settings
 from . import views
+from django.contrib.auth import views as auth_views
+from users.views import ResetPasswordView, ChangePasswordView 
+
 urlpatterns = [
     # Ajoutez vos patterns d'URL ici
     path('home/', HomeView.as_view() , name="home"),
@@ -34,7 +37,19 @@ urlpatterns = [
     path('update_association/<int:association_id>/', views.update_association, name='update_association'),
     path('delete_association/<int:association_id>/', views.delete_association, name='delete_association'),
   
+    path('password-reset/', ResetPasswordView.as_view(), name='password_reset'),
+    path('password-reset-confirm/<uidb64>/<token>/',
+         auth_views.PasswordResetConfirmView.as_view(template_name='users/password_reset_confirm.html'),
+         name='password_reset_confirm'),
 
+    path('password-reset-complete/',
+         auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'),
+         name='password_reset_complete'),
+
+    path('password-change/', ChangePasswordView.as_view(), name='password_change'),
+
+    re_path(r'^oauth/', include('social_django.urls', namespace='social')),
+    
 
 ]
 if settings.DEBUG:

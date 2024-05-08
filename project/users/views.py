@@ -22,7 +22,8 @@ from django.utils.encoding import force_bytes
 import codecs
 from django.contrib.auth.password_validation import validate_password
 from django.http import HttpResponseForbidden
-
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.views import PasswordResetView, PasswordChangeView
 from django.shortcuts import render, redirect, get_object_or_404
 
 #
@@ -373,3 +374,21 @@ def delete_association(request, association_id):
     return redirect('associations')
 
 
+
+###################### Password ######################
+
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'users/password_reset.html'
+    email_template_name = 'users/password_reset_email.html'
+    subject_template_name = 'users/password_reset_subject.txt'
+    success_message = "We've emailed you instructions for setting your password, " \
+                      "if an account exists with the email you entered. You should receive them shortly." \
+                      " If you don't receive an email, " \
+                      "please make sure you've entered the address you registered with, and check your spam folder."
+    success_url = reverse_lazy('DonorSignIn')
+
+
+class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    template_name = 'users/change_password.html'
+    success_message = "Successfully Changed Your Password"
+    success_url = reverse_lazy('DonorSignIn')
