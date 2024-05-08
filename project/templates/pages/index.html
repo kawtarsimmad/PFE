@@ -251,7 +251,29 @@
 
   </main><!-- End #main -->
 
-  
+  <script>
+    // Get user's geolocation
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            // Send latitude and longitude to Django backend using AJAX
+            // Example: Fetch nearby associations based on location
+            fetch(`/api/associations/?latitude=${latitude}&longitude=${longitude}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Handle response and display associations
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching associations:', error);
+                });
+        });
+    } else {
+        console.log('Geolocation is not supported by this browser.');
+    }
+    </script>
+    
 
   
 
