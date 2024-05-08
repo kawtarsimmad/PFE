@@ -6,6 +6,7 @@ from django.conf import settings
 from . import views
 from django.contrib.auth import views as auth_views
 from users.views import ResetPasswordView, ChangePasswordView 
+from django.contrib.auth.views import PasswordResetDoneView
 
 urlpatterns = [
     # Ajoutez vos patterns d'URL ici
@@ -50,6 +51,8 @@ urlpatterns = [
 
     re_path(r'^oauth/', include('social_django.urls', namespace='social')),
     
+    path('password-reset/done/', PasswordResetDoneView.as_view(template_name='users/password_success_message.html'), name='password-reset/done'),
+
 
 ]
 if settings.DEBUG:
