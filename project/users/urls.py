@@ -52,6 +52,8 @@ urlpatterns = [
     #re_path(r'^oauth/', include('social_django.urls', namespace='social')),
     
     path('password-reset/done/', PasswordResetDoneView.as_view(template_name='users/password_success_message.html'), name='password-reset/done'),
+    path('activate/<uidb64>/<token>', views.activate, name='activate'),
+    path('account-activation/', views.account_activation_email, name='account-activation'),
 
 
 ]

@@ -114,7 +114,7 @@
                                                 </div>
                                                 <br>
                                                 <div class="form-group row">
-                                                    <button type="submit" class="btn btn-secondary" style="background-color: #5d7891;">inscrire</button>
+                                                    <button type="submit" onclick="submitForm()" class="btn btn-secondary" style="background-color: #5d7891;">inscrire</button>
                                                 </div>
                                             </form>
                             <p class="mt-4">you have account ? <a href="{% url 'DonorSignIn' %}"class="text-decoration-none" style="color: #5d7891;">Login</a></p>
@@ -132,5 +132,27 @@
           </div>
         </div>
     </section>
+
+    <script>
+        function submitForm() {
+            // Retrieve form fields
+            const name = document.getElementById('DonorNom').value;
+            const telephone = document.getElementById('DonorTelephone').value;
+            const email = document.getElementById('DonorEmail').value;
+            const password = document.getElementById('DonorPassword').value;
+            const repassword = document.getElementById('DonorConfirmPassword').value;
+    
+            // Validate form fields
+            if (name && telephone && email && password && repassword) {
+                // Submit the form
+                document.getElementById('registrationForm').submit();
+                // Redirect to desired URL (replace "" with your URL)
+                window.location.href = "account-activation"; // Update this to your desired URL
+            } else {
+                // Display an alert if any required field is empty
+                alert('Please fill in all required fields.');
+            }
+        }
+     </script>
 </body>
 </html>

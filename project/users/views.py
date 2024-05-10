@@ -57,7 +57,12 @@ def activate(request,uidb64,token):
         return redirect('dashboard_donor')
     else:
         return render(request,'users/activation_failed.html')
-    
+ 
+def account_activation_email (request):
+    messages.success(request, "Account created successfully. Please check your email for activation.")
+    return render(request, 'user/account_activation_email.html')
+
+   
 #register en tant que Donor
 def DonorSignup(request):
     if request.method == 'POST':
@@ -119,13 +124,6 @@ def DonorSignup(request):
         [utilisateur.email],
         )
         send_mail(email_subject, message2, from_email, to_list, fail_silently=True)
-        
-         # Authenticate the user
-        authenticated_user = authenticate(request, username=email, password=password)
-        if authenticated_user is not None:
-            login(request, authenticated_user)
-        # Redirect to the dashboard
-        return redirect(request, 'users/account_activation_email.html')
 
     return render(request, 'users/registerdonor.html', {'error': False, 'message': ''})
 
