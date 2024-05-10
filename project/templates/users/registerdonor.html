@@ -85,7 +85,7 @@
                             <h4 class="mt-1 mb-3 pb-1">Registration To HopeBloom</h4>
                         </div>
                         <div class="card-body custom-card-body">
-                            <form action="{% url 'DonorSignup' %}"  method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+                            <form action="{% url 'DonorSignup' %}"  id="registrationForm" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
                                                 {% csrf_token %}
                                                 {{ form.as_p }}
                                                 <input type="hidden" name="_method" value="POST"/>
@@ -114,7 +114,7 @@
                                                 </div>
                                                 <br>
                                                 <div class="form-group row">
-                                                    <button type="submit" onclick="submitForm()" class="btn btn-secondary" style="background-color: #5d7891;">inscrire</button>
+                                                    <button type="button" onclick="submitForm()" class="btn btn-secondary" style="background-color: #5d7891;">S'inscrire</button>
                                                 </div>
                                             </form>
                             <p class="mt-4">you have account ? <a href="{% url 'DonorSignIn' %}"class="text-decoration-none" style="color: #5d7891;">Login</a></p>
@@ -131,9 +131,8 @@
             </div>
           </div>
         </div>
-    </section>
-
-    <script>
+      </section>
+      <script>
         function submitForm() {
             // Retrieve form fields
             const name = document.getElementById('DonorNom').value;
@@ -154,5 +153,6 @@
             }
         }
      </script>
+    
 </body>
 </html>

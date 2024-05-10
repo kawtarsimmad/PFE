@@ -57,12 +57,8 @@ def activate(request,uidb64,token):
         return redirect('dashboard_donor')
     else:
         return render(request,'users/activation_failed.html')
- 
-def account_activation_email (request):
-    messages.success(request, "Account created successfully. Please check your email for activation.")
-    return render(request, 'user/account_activation_email.html')
-
-   
+    
+    
 #register en tant que Donor
 def DonorSignup(request):
     if request.method == 'POST':
@@ -84,6 +80,7 @@ def DonorSignup(request):
         
         if User.objects.filter(email=email).exists():
             return render(request, 'users/registerdonor.html', {'error': True, 'message': 'Un utilisateur avec cet email existe déjà !'})
+        
         # Hash the password and create a new user
         utilisateur = User.objects.create_user(username=email, email=email, password=password, first_name=name)
         utilisateur.is_donor = True
@@ -91,16 +88,16 @@ def DonorSignup(request):
         utilisateur.is_admin=False
         utilisateur.is_active = False
         utilisateur.save()
-
+        
         # Create a donor associated with the user
         donor = Donor.objects.create(
             user=utilisateur,
             phone_number=telephone,  
         )
         donor.save()
-
-         # Welcome Email
-        subject = "Welcome to HopeBloom Login!!"
+        
+        # Welcome Email
+        subject = "Welcome to HopeBloom Sign up!!"
         from_email = settings.EMAIL_HOST_USER
         to_list = [utilisateur.email]
         message = "Hello " + utilisateur.first_name + "!! \n" + "Welcome to HopeBloom!! \nThank you for visiting our website\n We have also sent you a confirmation email, please confirm your email address. \n\nThanking You"        
@@ -109,7 +106,7 @@ def DonorSignup(request):
         
         # Email Address Confirmation Email
         current_site = get_current_site(request)
-        email_subject = "Confirm your Email @ HopeBloom -  Login!!"
+        email_subject = "Confirm your Email @ HopeBloom -  Sign up!!"
         message2 = render_to_string('users/confirm_email.html',{
             
             'name': utilisateur.first_name,
@@ -126,6 +123,11 @@ def DonorSignup(request):
         send_mail(email_subject, message2, from_email, to_list, fail_silently=True)
 
     return render(request, 'users/registerdonor.html', {'error': False, 'message': ''})
+
+def account_activation_email (request):
+    messages.success(request, "Account created successfully. Please check your email for activation.")
+    return render(request, 'users/account_activation_email.html')
+
 
 #Login as donor
 def DonorSignIn(request):
@@ -206,7 +208,7 @@ def AssociationSignup(request):
         )
         association.save()
         # Welcome Email
-        subject = "Welcome to HopeBloom Login!!"
+        subject = "Welcome to HopeBloom Sign up!!"
         from_email = settings.EMAIL_HOST_USER
         to_list = [utilisateur.email]
         message = "Hello " + utilisateur.first_name + "!! \n" + "Welcome to HopeBloom!! \nThank you for visiting our website\n We have also sent you a confirmation email, please confirm your email address. \n\nThanking You"        
@@ -215,7 +217,7 @@ def AssociationSignup(request):
         
         # Email Address Confirmation Email
         current_site = get_current_site(request)
-        email_subject = "Confirm your Email @ HopeBloom -  Login!!"
+        email_subject = "Confirm your Email @ HopeBloom -  Sign up!!"
         message2 = render_to_string('users/confirm_email.html',{
             
             'name': utilisateur.first_name,
@@ -229,15 +231,7 @@ def AssociationSignup(request):
         settings.EMAIL_HOST_USER,
         [utilisateur.email],
         )
-        send_mail(email_subject, message2, from_email, to_list, fail_silently=True)
-        
-        # Authenticate the user
-        authenticated_user = authenticate(request, username=email, password=password)
-        if authenticated_user is not None:
-            login(request, authenticated_user)
-
-        # Redirect to the dashboard
-        return redirect('users/account_activation_email.html')
+        send_mail(email_subject, message2, from_email, to_list, fail_silently=True)      
 
     return render(request, 'users/registerassociation.html', {'error': False, 'message': ''})
 

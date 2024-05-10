@@ -53,7 +53,8 @@ urlpatterns = [
     
     path('password-reset/done/', PasswordResetDoneView.as_view(template_name='users/password_success_message.html'), name='password-reset/done'),
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
-    path('account-activation/', views.account_activation_email, name='account-activation'),
+    path('DonorSignup/account-activation/', views.account_activation_email, name='account-activation'),
+    path('AssociationSignup/account-activation/', views.account_activation_email, name='account-activation'),
 
 
 ]
