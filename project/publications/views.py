@@ -8,7 +8,6 @@ from django.http import JsonResponse
 from paypal.standard.forms import PayPalPaymentsForm
 from django.conf import settings
 import uuid
-from django.urls import reverse
 
 
 def publication(request):
@@ -123,8 +122,16 @@ def CheckOut(request, publication_id):
 def PaymentSuccessful(request, publication_id):
 
     publication = Publication.objects.get(id=publication_id)
+    # Enregistrement des détails de paiement dans un fichier
+    user = publication.user
+    donor = request.user
 
-    return render(request, 'publications/payment-success.html', {'publication': publication})
+    with open('paiements_reussis.txt', 'a') as file:
+        file.write(f"Donor:{donor.username},Publication ID: {publication.id}, Titre: {publication.titre}, Montant: {publication.montant}, associaion beneficiée : {user.username}\n")
+
+
+
+    return render(request, 'publications/payment-success.html', {'publication': publication,'user': user})
 
 def paymentFailed(request, publication_id):
 

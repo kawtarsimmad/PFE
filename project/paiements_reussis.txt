@@ -1,0 +1,6 @@
+Donor:,Publication ID: 8, Titre: enfants malades de cancer, Montant: 500.00, associaion beneficiï¿½e : hala@gmail.com
+Donor:,Publication ID: 2, Titre: aide pour malades du dialyses, Montant: 500.00, associaion beneficiï¿½e : ahmed@gmail.com
+Donor:,Publication ID: 4, Titre: Enfants sans-abri, Montant: 30000.00, associaion beneficiï¿½e : hala@gmail.com
+Donor:kawtar@gmail.com,Publication ID: 8, Titre: enfants malades de cancer, Montant: 500.00, associaion beneficiée : hala@gmail.com
+Donor:kawtar@gmail.com,Publication ID: 1, Titre: bourse  pour étudiants, Montant: 50000.00, associaion beneficiée : ahmed@gmail.com
+Donor:leila@gmail.com,Publication ID: 8, Titre: enfants malades de cancer, Montant: 500.00, associaion beneficiée : hala@gmail.com

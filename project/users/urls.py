@@ -49,7 +49,7 @@ urlpatterns = [
 
     path('password-change/', ChangePasswordView.as_view(), name='password_change'),
 
-    re_path(r'^oauth/', include('social_django.urls', namespace='social')),
+    #re_path(r'^oauth/', include('social_django.urls', namespace='social')),
     
     path('password-reset/done/', PasswordResetDoneView.as_view(template_name='users/password_success_message.html'), name='password-reset/done'),
 

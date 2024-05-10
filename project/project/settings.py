@@ -13,9 +13,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 # To keep secret keys in environment variables
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 
-load_dotenv()
+#load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'reclamations.apps.ReclamationsConfig',
     'users.apps.UsersConfig',
     'categories.apps.CategoriesConfig',
-     'social_django',
+     #'social_django',
     # Third-party
          'crispy_forms',
          'paypal.standard.ipn',
@@ -80,8 +80,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
+                
             ],
         },
     },
@@ -157,8 +156,13 @@ PAYPAL_RECEIVER_EMAIL = 'sb-association@gmail.com' # where cash is paid into
 PAYPAL_TEST = True
 
 # social auth configs for google
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = str(os.getenv('GOOGLE_KEY'))
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = str(os.getenv('GOOGLE_SECRET'))
+#SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = str(os.getenv('GOOGLE_KEY'))
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = str(os.getenv('GOOGLE_SECRET'))
+
+#add in settings.py TEMPLATES
+#'social_django.context_processors.backends',
+#'social_django.context_processors.login_redirect',
+
 
 # email configs
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
