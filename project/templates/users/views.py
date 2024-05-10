@@ -36,10 +36,11 @@ from django.contrib.auth import authenticate, login, logout
 from . tokens import generate_token
 from django.contrib import messages
 
+
+
 #
 class HomeView(TemplateView):
     template_name = 'users/home.html'
-
 
 def activate(request,uidb64,token):
     try:
@@ -57,6 +58,7 @@ def activate(request,uidb64,token):
         return redirect('dashboard_donor')
     else:
         return render(request,'users/activation_failed.html')
+    
     
 #register en tant que Donor
 def DonorSignup(request):
@@ -79,6 +81,7 @@ def DonorSignup(request):
         
         if User.objects.filter(email=email).exists():
             return render(request, 'users/registerdonor.html', {'error': True, 'message': 'Un utilisateur avec cet email existe déjà !'})
+        
         # Hash the password and create a new user
         utilisateur = User.objects.create_user(username=email, email=email, password=password, first_name=name)
         utilisateur.is_donor = True
@@ -86,15 +89,15 @@ def DonorSignup(request):
         utilisateur.is_admin=False
         utilisateur.is_active = False
         utilisateur.save()
-
+        
         # Create a donor associated with the user
         donor = Donor.objects.create(
             user=utilisateur,
             phone_number=telephone,  
         )
         donor.save()
-
-         # Welcome Email
+        
+        # Welcome Email
         subject = "Welcome to HopeBloom Login!!"
         from_email = settings.EMAIL_HOST_USER
         to_list = [utilisateur.email]
@@ -119,8 +122,9 @@ def DonorSignup(request):
         [utilisateur.email],
         )
         send_mail(email_subject, message2, from_email, to_list, fail_silently=True)
+
         
-         # Authenticate the user
+        # Authenticate the user
         authenticated_user = authenticate(request, username=email, password=password)
         if authenticated_user is not None:
             login(request, authenticated_user)
@@ -197,7 +201,6 @@ def AssociationSignup(request):
         utilisateur.is_association = True
         utilisateur.is_donor=False
         utilisateur.is_admin=False
-        utilisateur.is_active = False
         utilisateur.save()
 
         # Create a association associated with the user
@@ -207,39 +210,13 @@ def AssociationSignup(request):
             stat_juridique=stat_juridique,  
         )
         association.save()
-        # Welcome Email
-        subject = "Welcome to HopeBloom Login!!"
-        from_email = settings.EMAIL_HOST_USER
-        to_list = [utilisateur.email]
-        message = "Hello " + utilisateur.first_name + "!! \n" + "Welcome to HopeBloom!! \nThank you for visiting our website\n We have also sent you a confirmation email, please confirm your email address. \n\nThanking You"        
-        send_mail(subject, message,from_email, to_list, fail_silently=True)
-        
-        
-        # Email Address Confirmation Email
-        current_site = get_current_site(request)
-        email_subject = "Confirm your Email @ HopeBloom -  Login!!"
-        message2 = render_to_string('users/confirm_email.html',{
-            
-            'name': utilisateur.first_name,
-            'domain': current_site.domain,
-            'uid': urlsafe_base64_encode(force_bytes(utilisateur.pk)),
-            'token': generate_token.make_token(utilisateur)
-        })
-        email = EmailMessage(
-        email_subject,
-        message2,
-        settings.EMAIL_HOST_USER,
-        [utilisateur.email],
-        )
-        send_mail(email_subject, message2, from_email, to_list, fail_silently=True)
-        
         # Authenticate the user
         authenticated_user = authenticate(request, username=email, password=password)
         if authenticated_user is not None:
             login(request, authenticated_user)
 
         # Redirect to the dashboard
-        return redirect('users/account_activation_email.html')
+        return redirect('dashboard_association')
 
     return render(request, 'users/registerassociation.html', {'error': False, 'message': ''})
 

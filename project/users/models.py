@@ -11,6 +11,11 @@ class User(AbstractUser):
     is_admin = models.BooleanField(default=False)
     groups = models.ManyToManyField(Group, related_name='user_groups')
     user_permissions = models.ManyToManyField(Permission, related_name='user_permissions')
+    email_confirmed = models.BooleanField(default=False)
+    confirmation_token = models.CharField(max_length=100, blank=True, null=True)
+    
+    def __str__(self):
+        return self.email
    
 class Donor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True, related_name='dashboard_donor')
