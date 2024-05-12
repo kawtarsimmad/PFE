@@ -8,4 +8,6 @@ urlpatterns = [
     path('Education/',views.education,name='Education'),
     path('Environment/',views.environment,name='Environment'),
     path('Children/',views.children,name='Children'),
+    path('Urgent/',views.urgent,name='Urgent'),    
+    
 ]

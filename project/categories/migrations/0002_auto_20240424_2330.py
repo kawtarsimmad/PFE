@@ -4,13 +4,13 @@ from django.db import migrations
 
 def add_predefined_categories(apps, schema_editor):
     Category = apps.get_model('categories', 'Category')
-    predefined_categories = ['Health', 'Education', 'Environment', 'Children']
+    predefined_categories = ['Health', 'Education', 'Environment', 'Children', 'Urgent']
     for category_name in predefined_categories:
         Category.objects.create(name=category_name)
 
 def remove_predefined_categories(apps, schema_editor):
     Category = apps.get_model('categories', 'Category')
-    predefined_categories = ['Health', 'Education', 'Environment', 'Children']
+    predefined_categories = ['Health', 'Education', 'Environment', 'Children', 'Urgent']
     Category.objects.filter(name__in=predefined_categories).delete()
 
 

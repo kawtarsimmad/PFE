@@ -49,3 +49,11 @@ def children(request):
     }
     return render(request, 'categories/children.html', context)
 
+def urgent(request):
+    publications= Publication.objects.all()
+    categories =Category.objects.all()
+    context = {
+        'categories': categories,
+        'publications': publications
+    }
+    return render(request, 'categories/urgent.html', context)
