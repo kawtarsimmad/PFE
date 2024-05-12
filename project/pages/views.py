@@ -4,13 +4,20 @@ from categories.models import Category
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 from users.models import Association,User
+from categories.models import Category
+
 
 
 
 # Create your views here.
 def index(request):
-    publications = Publication.objects.all()  # Fetch all publications
-    #publications = Publication.objects.order_by('category')[:2]
+    publications = Publication.objects.order_by('-date')[:3]  # Fetch all publications
+    categories= Category.objects.all()
+    context = {
+        'categories': categories,
+        'publications': publications
+    }
+    #publications = Publication.objects.order_by('date')[:2]
      #######admin_user = User.objects.filter(is_superuser=True).first()
     #if admin_user:
         # Filtrer les publications créées par l'administrateur
@@ -26,6 +33,14 @@ def index(request):
     #else:
         #publications = []  # Aucune catégorie "children" trouvée, donc aucune publication à afficher
 
-    return render(request, 'pages/index.html', {'publications': publications})
+    return render(request, 'pages/index.html', context)
 
 
+def latest_publications(request):
+    # Retrieve latest publications ordered by date (newest first)
+    latest_publications = Publication.objects.order_by('-date')[:3]  # Get latest 3 publications
+
+    context = {
+        'publications': latest_publications
+    }
+    return render(request, 'pages/index.html', context)

@@ -137,7 +137,6 @@
                         {% if category.name == 'Urgent' %}
                             {% for publication in publications %}
                                 {% if publication.category == category %}
-                                    <p>Publications count: {{ publications.count }}</p>
                                     <li class="publication-item" data-aos="zoom-in" data-aos-delay="200">
                                         <div class="card">
                                             <img src="{{ publication.image.url }}" class="publication-img" alt="{{ publication.titre }}">

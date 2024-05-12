@@ -173,3 +173,4 @@ EMAIL_HOST_USER = 'ghofranhala2@gmail.com'
 EMAIL_HOST_PASSWORD = 'dbea edbc rndq ilpf'
 
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
+

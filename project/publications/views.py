@@ -8,7 +8,10 @@ from django.http import JsonResponse
 from paypal.standard.forms import PayPalPaymentsForm
 from django.conf import settings
 import uuid
-
+from django.urls import reverse
+from django.core.mail import send_mail
+from categories.models import Category
+from users.models import Donor
 
 def publication(request):
     if request.method == "POST":
@@ -47,11 +50,41 @@ def PubCreate(request):
         if form.is_valid():
             publication=form.save(commit=False)
             publication.user= request.user
-            publication.save()
+            
+            urgent_category = Category.objects.get(name='Urgent')
+
+            if publication.category == urgent_category:
+                publication.save()  # Save the publication first
+                send_email_alert(publication)  # Then send email alert
+            else:
+                publication.save()  # Save the publication
+
             return redirect('PubList')
     else:
         form = PublicationForm()
     return render(request, 'publications/form.html', {'form': form})
+
+#################### send an alert email ############################
+def send_email_alert(publication):
+    # Retrieve all donors with valid email addresses
+    donors = Donor.objects.filter(user__is_donor=True, user__email__isnull=False).exclude(user__email='')
+    recipient_list = [donor.user.email for donor in donors]
+    site_domain = "http://127.0.0.1:8000/categories/Urgent/"
+    # Send email to donors if there are recipients
+    if recipient_list:
+        subject = f"Urgent Publication: {publication.titre}"
+        message = f"Dear donor, a new urgent publication '{publication.titre}' has been posted on our platform. Visit {site_domain} to learn more."
+        from_email = settings.EMAIL_HOST_USER
+
+        try:
+            send_mail(subject, message, from_email, recipient_list)
+            return True
+        except Exception as e:
+            print(f"Error sending email: {str(e)}")
+            return False    
+    else:
+        return False  
+
 
   
 
