@@ -31,10 +31,6 @@ def publicationIndex(request):
     publications = Publication.objects.all()
     return render(request, 'publications/publicationIndex.html', {'publications': publications})
 
-def publicationView(request):
-    publications = Publication.objects.all()
-    return render(request, 'publications/pub.html', {'publications': publications})
-
 
 
 @login_required
@@ -125,49 +121,3 @@ def PubList(request):
     publications = Publication.objects.filter(user=request.user)
     return render(request, 'publications/list.html', {'publications': publications})
 
-
-def CheckOut(request, publication_id):
-
-    publication = Publication.objects.get(id=publication_id)
-
-    host = request.get_host()
-
-    paypal_checkout = {
-        'business': settings.PAYPAL_RECEIVER_EMAIL,
-        'amount': publication.montant,
-        'item_name': publication.titre,
-        'invoice': uuid.uuid4(),
-        'currency_code': 'USD',
-        'notify_url': f"http://{host}{reverse('paypal-ipn')}",
-        'return_url': f"http://{host}{reverse('payment-success', kwargs = {'publication_id': publication.id})}",
-        'cancel_url': f"http://{host}{reverse('payment-failed', kwargs = {'publication_id': publication.id})}",
-    }
-
-    paypal_payment = PayPalPaymentsForm(initial=paypal_checkout)
-
-    context = {
-        'publication': publication,
-        'paypal': paypal_payment
-    }
-
-    return render(request, 'publications/checkout.html', context)
-
-def PaymentSuccessful(request, publication_id):
-
-    publication = Publication.objects.get(id=publication_id)
-    # Enregistrement des détails de paiement dans un fichier
-    user = publication.user
-    donor = request.user
-
-    with open('paiements_reussis.txt', 'a') as file:
-        file.write(f"Donor:{donor.username},Publication ID: {publication.id}, Titre: {publication.titre}, Montant: {publication.montant}, associaion beneficiée : {user.username}\n")
-
-
-
-    return render(request, 'publications/payment-success.html', {'publication': publication,'user': user})
-
-def paymentFailed(request, publication_id):
-
-    publication = Publication.objects.get(id=publication_id)
-
-    return render(request, 'publications/payment-failed.html', {'publication': publication})

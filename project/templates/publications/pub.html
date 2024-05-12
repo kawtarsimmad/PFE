@@ -103,7 +103,7 @@
         <div class="publication-container">
             {% for publication in publications %}
                 <div class="publications">
-                    <a href="{% url 'checkout' publication.id %}"> id pub:{{publication.id}}</a>
+                    <!--<a href="{% url 'checkout' publication.id %}"> id pub:{{publication.id}}</a>-->
                     <p> {{publication.montant}} $</p>
                 </div>
             {% endfor %}

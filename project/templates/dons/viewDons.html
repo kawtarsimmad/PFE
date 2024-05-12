@@ -125,6 +125,20 @@
             color: #fff;
             background-color: #cd9c4c;
         }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table th,
+        .table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd; /* Light border */
+        }
+        .thead-dark {
+            background-color: #343a40; /* Dark background color for table header */
+            color: #fff; /* White text color for table header */
+        }
     </style>
 </head>
 <body>
@@ -152,25 +166,41 @@
 
     <div class="main-content">
         <h1 class="mt-4">Listes Des Dons</h1>
-        <main class="col-md-10 bg-light p-4 content">
-            <div class="container mt-5">
-                <div class="row">
-                    <div class="col-md-3">
-                        <a href="{% url 'faire_don' %}" class="btn btn-primary">faire un Don</a>
-                        <br>
+                        
+                        <br><br>
+                        <!--<a href="{% url 'faire_don' %}" class="btn btn-primary">faire un Don</a>-->
+                        <br><br>
+
                             {% if dons %}
-                                <ul>
-                                    {% for don in dons %}
-                                    <li>{{ don.id }} - {{ don.user.first_name }} - {{ don.montantDons }}- {{ don.date }} - {{ don.est_paye }}</li>
-                                    {% endfor %}
-                                </ul>
+                                
+                                <table class="table table-bordered">
+                                    <thead class="table-dark">
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <!--<th scope="col">Bénéficiaires </th>-->
+                                            <th scope="col">    Date    </th>
+                                            <th scope="col">Montant</th>
+                                            <th scope="col">est_paye</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for don in dons %}
+                                            <tr>
+                                                <td>{{ don.id }}</td>
+                                                <!--<td>{{ don.user.first_name }}</td> modifier apres-->
+                                                <td>{{ don.date }}</td>
+                                                <td>{{ don.montantDons }}</td>
+                                                <td>{{ don.est_paye }}</td>
+                                                
+                                                
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
                             {% else %}
                                 <br><br><p>Sorry, no pending dons.</p>
                             {% endif %}
-                    </div>
-                </div>
-            </div>
-        </main>
     </div>
 
 <!-- Bootstrap JS Bundle (Popper.js included) -->

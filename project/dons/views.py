@@ -1,7 +1,8 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from . models import Don
+from publications.models import Publication
 from .forms import PaiementForm
-#from paypal.standard.forms import PayPalPaymentsForm
+from paypal.standard.forms import PayPalPaymentsForm
 from django.conf import settings
 import uuid
 from django.urls import reverse
@@ -18,22 +19,68 @@ def faire_don(request):
         if form.is_valid():
             montantDons = form.cleaned_data['montantDons']
             don = Don.objects.create(user=request.user, montantDons = montantDons)
-            # Ici, vous pourriez rediriger vers un service de paiement tiers
-            # ou intégrer directement le processus de paiement ici.
-            don.est_paye = True  # Pour cet exemple, nous supposons que le don est payé immédiatement.
-            don.save()
-            return redirect('viewDons')
+            return CheckOut(request, don.id)
     else:
         form = PaiementForm()
     return render(request, 'dons/faire_don.html', {'form': form})
 
-
-def succes(request):
-    return render(request, 'dons/succes.html')
 
 
 
 def viewDons(request):
     dons = Don.objects.filter(user=request.user)
     return render(request, 'dons/viewDons.html', {'dons': dons})
+
+def delete_don(request, don_id):
+    reclamation = get_object_or_404(Don, id=don_id)
+    reclamation.delete()
+    return redirect('viewDons')
+
+
+def CheckOut(request, don_id):
+
+    don = Don.objects.get(id=don_id)
+
+    host = request.get_host()
+
+    paypal_checkout = {
+        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'amount': don.montantDons,
+        'item_name': don.id,
+        'invoice': uuid.uuid4(),
+        'currency_code': 'EUR',
+        'notify_url': f"http://{host}{reverse('paypal-ipn')}",
+        'return_url': f"http://{host}{reverse('payment-success', kwargs = {'don_id': don.id})}",
+        'cancel_url': f"http://{host}{reverse('payment-failed', kwargs = {'don_id': don.id})}",
+    }
+
+    paypal_payment = PayPalPaymentsForm(initial=paypal_checkout)
+
+    context = {
+        'don': don,
+        'paypal': paypal_payment
+    }
+
+    return render(request, 'dons/checkout.html', context)
+
+def PaymentSuccessful(request, don_id):
+
+    don = Don.objects.get(id=don_id)
+    donor = request.user
+     # Mettre à jour l'attribut est_paye à True
+    don.est_paye = True
+    don.save()
+
+ # Enregistrement des détails de paiement dans un fichier
+    with open('donsTrue.txt', 'a') as file:
+        file.write(f"Id_Don: {don.id} , Donor:{donor.username}, Titre: {don.date}, Montant: {don.montantDons}\n")
+        
+    return render(request, 'dons/payment-success.html', {'don': don,'user': donor})
+
+def paymentFailed(request, don_id):
+
+    don = Don.objects.get(id=don_id)
+
+    return render(request, 'dons/payment-failed.html', {'don': don})
+
 

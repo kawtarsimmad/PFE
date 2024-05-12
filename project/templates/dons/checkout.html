@@ -1,18 +1,24 @@
+{%extends 'base.html' %}
+{% load static  %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment failed</title>
+    <title>Checkout page</title>
+
+    
 </head>
 <body>
-    <h1>Payment failed for publication: {{publication.id}}</h1>
-    <div class="publication-container">
-        <div class="publications">
-            <p>{{publication.id}}</p>
-            <p>Price:  {{publication.montant}} $</p>
-
-        </div>  
+    {% block content %}
+    <h1>Checkout for don: {{don.id}}</h1>
+    <div class="don-container">
+        <div class="dons">
+            <p>don:{{don.id}}</p>
+            <p>Montant: {{don.montantDons}} $</p>
+            <!-- <button>Purchase</button> -->
+            {{paypal.render}}
+        </div>
     </div>
     <style>
         body {
@@ -20,7 +26,7 @@
             box-sizing: border-box;
         }
 
-        .publication-container {
+        .don-container {
             display: flex;
             flex-direction: row;
             width: 100%;
@@ -38,5 +44,8 @@
             border: none;
         }
     </style>
+
+    
+    {% endblock content %}
 </body>
 </html>
