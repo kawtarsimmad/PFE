@@ -138,7 +138,8 @@
                                 <div class="publication-content">
                                     <h5 class="card-title">{{ publication.titre }}</h5>
                                     <p class="card-text">{{ publication.contenu | truncatechars:150 }}</p>
-                                    <a href="{% url 'checkout' publication.id %}" class="btn btn-primary"> faire don</a>
+                                    <!--<a href="{% url 'checkout' publication.id %}" class="btn btn-primary"> faire don</a>-->
+                                    <a href="https://www.sandbox.paypal.com/ncp/payment/2VNM2GV5SMWJN" class="btn btn-primary">faire un Don</a>            
                                     <a href="{% url 'detail' publication.id %}" class="btn btn-primary">Read More</a>
                                 </div>
                             </div>
