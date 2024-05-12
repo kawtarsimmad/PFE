@@ -56,10 +56,10 @@
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#featured-services">Healthcare</a></li>
-                        <li><a class="dropdown-item" href="#featured-services">Education</a></li>
-                        <li><a class="dropdown-item" href="#featured-services">children</a></li>
-                        <li><a class="dropdown-item" href="#featured-services">Environment</a></li>
+                        <li><a class="dropdown-item" href="{%url 'Health' %}" >Healthcare</a></li>
+                        <li><a class="dropdown-item" href="{%url 'Education' %}">Education</a></li>
+                        <li><a class="dropdown-item" href="{%url 'Children' %}">Children</a></li>
+                        <li><a class="dropdown-item" href="{%url 'Environment' %}">Environment</a></li>
                       </ul>   
                     </li>
                     {% if user.is_authenticated %}

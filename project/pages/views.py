@@ -9,7 +9,7 @@ from users.models import Association,User
 
 # Create your views here.
 def index(request):
-    #publications = Publication.objects.all()  # Fetch all publications
+    publications = Publication.objects.all()  # Fetch all publications
     #publications = Publication.objects.order_by('category')[:2]
      #######admin_user = User.objects.filter(is_superuser=True).first()
     #if admin_user:
@@ -18,13 +18,13 @@ def index(request):
     #else:
         #publications = []  # Aucun administrateur trouvé, donc aucune publication à afficher
 
-    children_category = Category.objects.filter(id="1").first()
+    #children_category = Category.objects.filter(id="1").first()
 
-    if children_category:
+    #if children_category:
         # Filtrer les publications appartenant à la catégorie "children"
-        publications = Publication.objects.filter(category_id=children_category)
-    else:
-        publications = []  # Aucune catégorie "children" trouvée, donc aucune publication à afficher
+        #publications = Publication.objects.filter(category_id=children_category)
+    #else:
+        #publications = []  # Aucune catégorie "children" trouvée, donc aucune publication à afficher
 
     return render(request, 'pages/index.html', {'publications': publications})
 

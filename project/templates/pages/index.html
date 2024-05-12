@@ -29,6 +29,7 @@
         <div class="row">
           {% if publications %}
             {% for publication in publications %}
+            {% if forloop.counter <= 3 %} {# Limit to 3 publications #}
               <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
                 <div class="card" data-aos="fade-up" data-aos-delay="100">
                   <img src="{{ MEDIA_URL }}{{ publication.image.url }}" class="card-img-top" alt="{{ publication.titre }}">
@@ -41,6 +42,7 @@
                   </div>
                 </div>
               </div>
+            {% endif %}
             {% endfor %}
           {% else %}
             <div class="col-12">
@@ -66,7 +68,7 @@
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
             <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
               <div class="icon"><i class="bi bi-hospital"></i></div>
-              <h4 class="title"><a href="">Healthcare</a></h4>
+              <h4 class="title"><a href="{%url 'Health' %}">Healthcare</a></h4>
               <p class="description">Help individuals cover medical bills for surgeries, treatments, medications, and medical equipment.</p>
             </div>
           </div>
@@ -76,7 +78,7 @@
               <div class="icon">
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
                 <i class="fas fa-book"></i></div>
-              <h4 class="title"><a href="">Education</a></h4>
+              <h4 class="title"><a href="{%url 'Education' %}">Education</a></h4>
               <p class="description">Support educational initiatives such as scholarships, school supplies, and infrastructure development to ensure access to quality education for all.</p>
             </div>
           </div>
@@ -87,7 +89,7 @@
                   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.7.2/font/bootstrap-icons.css" rel="stylesheet">
                     <i class="bi bi-people"></i>
                 </div>
-                <h4 class="title"><a href="">Children</a></h4>
+                <h4 class="title"><a href="{%url 'Children' %}">Children</a></h4>
                 <p class="description">Support local children with vital resources and opportunities for a brighter future. Your donations directly assist with essentials like food and clothing support.</p>
             </div>
         </div>
@@ -98,7 +100,7 @@
               <div class="icon">
                 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
                 <i class="fas fa-leaf"></i></div>
-              <h4 class="title"><a href="">Environment</a></h4>
+              <h4 class="title"><a href="{%url 'Environment' %}">Environment</a></h4>
               <p class="description">Fund efforts to protect ecosystems, wildlife habitats, and natural resources through initiatives like reforestation, conservation projects, and sustainable development.</p>
             </div>
           </div>
