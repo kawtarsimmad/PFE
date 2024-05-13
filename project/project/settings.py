@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'reclamations.apps.ReclamationsConfig',
     'users.apps.UsersConfig',
     'categories.apps.CategoriesConfig',
+    'events.apps.EventsConfig',
      #'social_django',
     # Third-party
          'crispy_forms',

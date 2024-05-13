@@ -194,6 +194,25 @@
                 {% endif %}
                 {% endif %}
             </li>
+            <li>
+                {% if user.is_authenticated %}
+                {%if user.is_admin%}
+                  <li class="nav-item"><a class="nav-link" href="{% url 'events'%}">
+                    <i class="bi bi-calendar3 me-2"></i>Events
+                </a></li>
+                {% endif %}
+                {%if user.is_association%}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'event_list'%}">
+                        <i class="bi bi-calendar3 me-2"></i>Mes Events
+                    </a></li>
+                {% endif %}
+                {%if user.is_donor%}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'donor_event_list'%}">
+                        <i class="bi bi-calendar3 me-2"></i>Mes Events
+                    </a></li>
+                {% endif %}
+                {% endif %}
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link " href="{% url 'view_reclamations' %}" role="button"  ><i class="bi bi-chat-right-dots"></i>Reclamations</a>
                 

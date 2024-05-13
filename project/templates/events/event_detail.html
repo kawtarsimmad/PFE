@@ -1,0 +1,23 @@
+<!-- events/templates/events/event_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ event.title }}</title>
+</head>
+<body>
+    <h1>{{ event.title }}</h1>
+    <p>{{ event.description }}</p>
+    <p>Date: {{ event.date }}</p>
+    <p>Time: {{ event.time }}</p>
+    <p>Location: {{ event.location }}</p>
+    <p>Max Attendees: {{ event.max_attendees }}</p>
+    <p>Current Attendees: {{ event.attendees.count }}</p>
+
+    {% if user.is_authenticated and user.is_donor %}
+        {% if user not in event.attendees.all %}
+            <a href="{% url 'participate_event' event_id=event.id %}">Participate</a>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
