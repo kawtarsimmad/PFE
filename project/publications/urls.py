@@ -12,6 +12,7 @@ urlpatterns = [
     path('update/<int:pk>/',views.PubUpdate,name='update'),
     path('delete/<int:publication_id>/', views.PubDelete, name='delete'),
     path('publicationIndex/',views.publicationIndex,name='publicationIndex'),
+    path('dons_associes/<int:publication_id>/', views.dons_associes, name='dons_associes'),
 
 
 ]

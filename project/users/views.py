@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
-# Create your views here.
 from django.views.generic import TemplateView 
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -11,8 +10,6 @@ from django.contrib.auth.models import User
 from django.core.validators import validate_email
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ValidationError
-from users.models import User ###########
-from .models import Admin, Donor, Association ###########
 #from paypal.standard.forms import PayPalPaymentsForm
 from django.template.loader import render_to_string
 from django.contrib.auth.tokens import default_token_generator
@@ -35,6 +32,11 @@ from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth import authenticate, login, logout
 from . tokens import generate_token
 from django.contrib import messages
+from .models import User,Admin, Donor, Association ###########
+from publications.models import Publication
+from categories.models import Category
+from dons.models import Don
+
 
 #
 class HomeView(TemplateView):
@@ -332,11 +334,29 @@ def dashboardAdmin(request):
     admin = Admin.objects.filter(user=user).first()
     donors=Donor.objects.all()
     associations=Association.objects.all()
+    pub=Publication.objects.all()
+    categories= Category.objects.all()
+    dons = Don.objects.all()
+    users=User.objects.all()
+    associations=Association.objects.all()
+    donors=Donor.objects.all()
+    categories= Category.objects.all()
+
+    
+    total_dons_all = Publication.calculate_total_dons_all()####total des dons  de tous les publications ou d'une pub 
+
 
     context = {
         'admin': admin,
         'donors': donors,
         'associations': associations,
+        'pub': pub,
+        'dons': dons,
+        'users' : users,
+        'donors' : donors,
+        'total_dons_all' : total_dons_all,
+        'categories': categories,
+
     }
     return render(request, 'users/dashboardAdmin.html', context)
 ###################### / admin  / ##################

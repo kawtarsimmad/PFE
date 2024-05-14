@@ -154,9 +154,9 @@
             <li class="nav-item">
                 <a class="nav-link text-white" href="{% url 'viewDons' %}"><i class="fas fa-donate me-2"></i>Dons</a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'donor_event_list'%}">
-                <i class="bi bi-journals me-2"></i>Mes Evenements
-            </a></li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'donor_event_list'%}"><i class="bi bi-journals me-2"></i>Mes Evenements</a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link " href="{% url 'view_reclamations' %}" role="button"  ><i class="bi bi-chat-right-dots"></i>Reclamations</a>
             
@@ -170,8 +170,7 @@
     <div class="main-content">
         <h1 class="mt-4">Listes Des Dons</h1>
                         
-                        <br><br>
-                        <!--<a href="{% url 'faire_don' %}" class="btn btn-primary">faire un Don</a>-->
+                        
                         <br><br>
 
                             {% if dons %}
@@ -180,8 +179,9 @@
                                     <thead class="table-dark">
                                         <tr>
                                             <th scope="col">ID</th>
-                                            <!--<th scope="col">Bénéficiaires </th>-->
-                                            <th scope="col">    Date    </th>
+                                            <th scope="col">Bénéficiaires </th>
+                                            <th scope="col">Id_Pub</th>
+                                            <th scope="col">Date </th>
                                             <th scope="col">Montant</th>
                                             <th scope="col">est_paye</th>
                                             
@@ -191,12 +191,12 @@
                                         {% for don in dons %}
                                             <tr>
                                                 <td>{{ don.id }}</td>
-                                                <!--<td>{{ don.user.first_name }}</td> modifier apres-->
+                                                <td>{{ don.publication.user.username }}</td>
+                                                <td>{{ don.publication.id }}</td>
                                                 <td>{{ don.date }}</td>
                                                 <td>{{ don.montantDons }}</td>
                                                 <td>{{ don.est_paye }}</td>
-                                                
-                                                
+                                                                                                
                                             </tr>
                                         {% endfor %}
                                     </tbody>
@@ -206,7 +206,7 @@
                             {% endif %}
     </div>
 
-<!-- Bootstrap JS Bundle (Popper.js included) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS Bundle (Popper.js included) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

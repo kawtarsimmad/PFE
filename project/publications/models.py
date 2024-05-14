@@ -20,4 +20,11 @@ class Publication(models.Model):
         return self.titre 
     
     
-
+    def calculate_total_dons(self):
+        total_dons = sum(d.montantDons for d in self.dons.all())
+        return total_dons
+    
+    @classmethod
+    def calculate_total_dons_all(cls):
+        total_dons_all = sum(publication.calculate_total_dons() for publication in cls.objects.all())
+        return total_dons_all

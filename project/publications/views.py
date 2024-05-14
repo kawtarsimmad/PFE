@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse,reverse_lazy
 from . models import Publication
+from dons.models import Don
 from .forms import PublicationForm
 from django.http import HttpResponse
 from django.http import JsonResponse
@@ -25,7 +26,8 @@ def publication(request):
 
 def publications(request):
     publications = Publication.objects.all()
-    return render(request, 'publications/publications.html', {'publications': publications})
+    dons = Don.objects.all()
+    return render(request, 'publications/publications.html', {'publications': publications,'dons':dons,'total_dons_all': total_dons_all})
 
 def publicationIndex(request):
     publications = Publication.objects.order_by('-date')
@@ -36,7 +38,8 @@ def publicationIndex(request):
 @login_required
 def PubDetail(request, pk):
     publication = get_object_or_404(Publication, pk=pk)
-    return render(request, 'publications/detail.html', {'publication': publication})
+    dons = publication.dons.all()  # Récupérer tous les dons associés à cette publication
+    return render(request, 'publications/detail.html', {'publication': publication, 'dons': dons})
  
 
 
@@ -120,4 +123,14 @@ def PubDelete(request, publication_id):
 def PubList(request):
     publications = Publication.objects.filter(user=request.user)
     return render(request, 'publications/list.html', {'publications': publications})
+
+
+def dons_associes(request, publication_id):
+
+    publication = Publication.objects.get(id=publication_id)
+    dons = Don.objects.filter(publication=publication)
+    total_dons = publication.calculate_total_dons()
+    total_dons_all = Publication.calculate_total_dons_all()
+    
+    return render(request, 'publications/dons_associes.html', {'publication': publication, 'dons': dons,'total_dons_all': total_dons_all})
 

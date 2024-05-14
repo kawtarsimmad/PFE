@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from publications.models import Publication
 from categories.models import Category
+from dons.models import Don
+from users.models import Association,User,Donor
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
-from users.models import Association,User
-from categories.models import Category
 
 
 
@@ -12,10 +12,25 @@ from categories.models import Category
 # Create your views here.
 def index(request):
     publications = Publication.objects.order_by('-date')[:3]  # Fetch all publications
+    pub=Publication.objects.all()
     categories= Category.objects.all()
+    dons = Don.objects.all()
+    users=User.objects.all()
+    associations=Association.objects.all()
+    donors=Donor.objects.all()
+
+    
+    total_dons_all = Publication.calculate_total_dons_all()####total des dons  de tous les publications ou d'une pub 
+
     context = {
         'categories': categories,
-        'publications': publications
+        'publications': publications,
+        'pub': pub,
+        'dons': dons,
+        'users' : users,
+        'associations':associations,
+        'donors' : donors,
+        'total_dons_all' : total_dons_all,
     }
     #publications = Publication.objects.order_by('date')[:2]
      #######admin_user = User.objects.filter(is_superuser=True).first()

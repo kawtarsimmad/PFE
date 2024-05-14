@@ -12,17 +12,18 @@ def don(request):
 def dons(request):
     return render(request, 'dons/dons.html',{'dn':Don.objects.all()})
 
-def faire_don(request):
+def faire_don(request, publication_id):
+    publication = get_object_or_404(Publication, pk=publication_id)
     #if request.user.has_perm('your_app_name.can_make_donation'):#
     if request.method == 'POST':
         form = PaiementForm(request.POST)
         if form.is_valid():
             montantDons = form.cleaned_data['montantDons']
-            don = Don.objects.create(user=request.user, montantDons = montantDons)
+            don = Don.objects.create(user=request.user, montantDons = montantDons, publication=publication)
             return CheckOut(request, don.id)
     else:
         form = PaiementForm()
-    return render(request, 'dons/faire_don.html', {'form': form})
+    return render(request, 'dons/faire_don.html', {'form': form,'publication':publication})
 
 
 
