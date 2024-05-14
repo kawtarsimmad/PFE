@@ -4,23 +4,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Event
 from .forms import EventForm
 
-def create_event(request):
-    if request.method == 'POST':
-        form = EventForm(request.POST)
-        user=request.user
-        if form.is_valid():
-            event = form.save(commit=False)
-            event.user= request.user
-            event.save()
-            if user.is_admin:
-                  return redirect('events')
-            elif user.is_association:
-                 return redirect('event_list')
-    else:
-        form = EventForm()
-    
-    return render(request, 'events/create_event.html', {'form': form})
-
 @login_required
 def event_list(request):
     events = Event.objects.filter(user=request.user)  
@@ -39,6 +22,24 @@ def eventIndex (request):
     events = Event.objects.all()
     return render(request, 'events/eventIndex.html', {'events': events})
 
+def create_event(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST, request.FILES)
+        if form.is_valid():
+            user=request.user
+            # Save the event with the current authenticated user
+            event = form.save(commit=False)
+            event.user = request.user  # Set the event's user to the current authenticated user
+            event.save()
+            if user.is_admin:
+                  return redirect('events')
+            elif user.is_association:
+                 return redirect('event_list')
+    else:
+        form = EventForm()
+    
+    return render(request, 'events/create_event.html', {'form': form})
+
 def participate_event(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
     
@@ -48,9 +49,19 @@ def participate_event(request, event_id):
             event.attendees.add(request.user)
             event.save()
 
-    return redirect('event_detail', event_id=event_id)
+    return redirect('detail_events', pk=event.pk)
 
 def EventDetail(request, pk):
     events = get_object_or_404(Event, pk=pk)
-    return render(request, 'publications/detail.html', {'events': events})
+    return render(request, 'events/event_detail.html', {'events': events})
  
+
+@login_required
+def EventDelete(request, event_id):
+    event = get_object_or_404(Event, pk=event_id)
+    user=request.user
+    event.delete()
+    if user.is_admin:
+            return redirect('events')
+    elif user.is_association:
+            return redirect('event_list')

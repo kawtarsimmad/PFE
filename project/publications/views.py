@@ -27,7 +27,7 @@ def publication(request):
 def publications(request):
     publications = Publication.objects.all()
     dons = Don.objects.all()
-    return render(request, 'publications/publications.html', {'publications': publications,'dons':dons,'total_dons_all': total_dons_all})
+    return render(request, 'publications/publications.html', {'publications': publications,'dons':dons})
 
 def publicationIndex(request):
     publications = Publication.objects.order_by('-date')

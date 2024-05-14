@@ -230,11 +230,6 @@
                         <a class="nav-link text-white" href="{% url 'view_reclamations' %}"><i class="bi bi-chat-right-dots me-2"></i>Reclamations</a>
                     </li>
                 {% endif %}
-                {%if user.is_admin%}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link text-white" href="{% url 'reclamations' %}"><i class="bi bi-chat-right-dots me-2"></i>Reclamations</a>
-                    </li>
-                {% endif %}
                 {% endif %}
             </li>
             <li class="nav-item">
@@ -243,12 +238,10 @@
         </ul>
     </div>
     <div class="main-content">
-
         <br>  
-
         <br>
         <h1>Create New Event</h1>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Create Event</button>

@@ -3,6 +3,7 @@ from publications.models import Publication
 from categories.models import Category
 from dons.models import Don
 from users.models import Association,User,Donor
+from events.models import Event
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 
@@ -18,11 +19,14 @@ def index(request):
     users=User.objects.all()
     associations=Association.objects.all()
     donors=Donor.objects.all()
+    events=Event.objects.order_by('-date')[:3]
+
 
     
     total_dons_all = Publication.calculate_total_dons_all()####total des dons  de tous les publications ou d'une pub 
 
     context = {
+        'events': events,
         'categories': categories,
         'publications': publications,
         'pub': pub,

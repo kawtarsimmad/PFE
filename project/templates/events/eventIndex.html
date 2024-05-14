@@ -80,8 +80,7 @@
             <nav id="navbar" class="navbar">
                 <ul>
                    
-                    <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                    <li><a class="nav-link scrollto" href="#about">About</a></li>
+                    <li><a class="nav-link scrollto active" href="/">Home</a></li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
                       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -140,7 +139,7 @@
                                     <p class="card-text">{{ event.contenu | truncatechars:150 }}</p>
                                     <!--<a href="{% url 'checkout' event.id %}" class="btn btn-primary"> faire don</a> -->    
                                     <!--<a href="https://www.sandbox.paypal.com/ncp/payment/2VNM2GV5SMWJN" class="btn btn-primary">faire un Don</a>  -->     
-                                    <a href="{% url 'participate_event' %}" class="btn btn-primary">participer</a>      
+                                    <a href="{% url 'participate_event' event.pk %}" class="btn btn-primary">participer</a>
                                     <a href="{% url 'detail_events' event.id %}" class="btn btn-primary">Read More</a>
                                 </div>
                             </div>
