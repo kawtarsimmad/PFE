@@ -31,7 +31,27 @@ def publications(request):
 
 def publicationIndex(request):
     publications = Publication.objects.order_by('-date')
-    return render(request, 'publications/publicationIndex.html', {'publications': publications})
+    publication_data = []
+    
+    for publication in publications:
+        montant_obj = publication.montant
+        totalDons=publication.calculate_total_dons()
+        Montant_rest= (montant_obj - totalDons )
+        publication.Montant_rest = Montant_rest
+        if totalDons > 0:
+            progress_percent = (totalDons / montant_obj) * 100
+        else:
+            progress_percent = 0
+        publication.progress_percent = progress_percent  # Add progress_percent
+      
+    context = {
+        'publications': publications,
+        'publication_data': publication_data,
+        'totalDons':totalDons,
+        'Montant_rest':Montant_rest
+    }
+
+    return render(request, 'publications/publicationIndex.html',context)
 
 
 
@@ -39,7 +59,28 @@ def publicationIndex(request):
 def PubDetail(request, pk):
     publication = get_object_or_404(Publication, pk=pk)
     dons = publication.dons.all()  # Récupérer tous les dons associés à cette publication
-    return render(request, 'publications/detail.html', {'publication': publication, 'dons': dons})
+    
+    montant_obj = publication.montant
+    totalDons=publication.calculate_total_dons()  
+    Montant_rest= (montant_obj - totalDons )
+    publication.Montant_rest = Montant_rest
+
+    if totalDons > 0:
+        progress_percent = (totalDons / montant_obj) * 100
+    else:
+        progress_percent = 0
+    publication.progress_percent = progress_percent  # Add progress_percent
+
+        
+    context={
+        'publication': publication,
+        'dons': dons,
+        'totalDons':totalDons,
+        'Montant_rest':Montant_rest,
+        'progress_percent':progress_percent
+    }
+
+    return render(request, 'publications/detail.html', context)
  
 
 

@@ -19,9 +19,23 @@ def index(request):
     users=User.objects.all()
     associations=Association.objects.all()
     donors=Donor.objects.all()
+    total_dons_all = Publication.calculate_total_dons_all()####total des dons  de tous les publications ou d'une pub 
+
     events=Event.objects.order_by('-date')[:3]
-    
+    publication_data = []
     event_data = []
+
+    for publication in publications:
+        montant_obj = publication.montant
+        totalDons=publication.calculate_total_dons()
+        Montant_rest= (montant_obj - totalDons )
+        publication.Montant_rest = Montant_rest
+        if totalDons > 0:
+            progress_percent = (totalDons / montant_obj) * 100
+        else:
+            progress_percent = 0
+        publication.progress_percent = progress_percent  # Add progress_percent
+      
     
     for event in events:
         num_attendees = event.attendees.count()
@@ -38,7 +52,6 @@ def index(request):
         })
 
     
-    total_dons_all = Publication.calculate_total_dons_all()####total des dons  de tous les publications ou d'une pub 
 
     context = {
         'events': events,
@@ -51,6 +64,9 @@ def index(request):
         'donors' : donors,
         'total_dons_all' : total_dons_all,
         'events': event_data,
+        'publication_data': publication_data,
+        'totalDons':totalDons,
+        'Montant_rest':Montant_rest
     }
     #publications = Publication.objects.order_by('date')[:2]
      #######admin_user = User.objects.filter(is_superuser=True).first()

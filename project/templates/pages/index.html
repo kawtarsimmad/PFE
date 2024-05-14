@@ -39,6 +39,15 @@
                         <div class="card-body">
                           <h5 class="card-title">{{ publication.titre }}</h5>
                           <p class="card-text">{{ publication.contenu | truncatechars:150 }}</p>
+                          <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: {{ publication.progress_percent }}%;" aria-valuenow="{{ publication.progress_percent }}%" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                          {% if publication.Montant_rest > 0 %}
+                              <div style="font-style: italic; text-decoration: underline;" ><strong>Montant restant {{ publication.Montant_rest|floatformat:2 }}$</strong></div>
+                          {% else %}
+                                <div style="font-style: italic; text-decoration: underline;" ><strong>Objectif atteint</strong></div>
+                          {% endif %}
+                          <br>
                           <a href="{% url 'faire_don' publication.id %}" class="btn btn-primary">faire un Don</a>                
                           <a href="{% url 'detail' publication.id %}" class="btn btn-primary">Read More</a>
                         </div>
@@ -81,6 +90,15 @@
                   <div class="card-body">
                     <h5 class="card-title">{{ publication.titre }}</h5>
                     <p class="card-text">{{ publication.contenu | truncatechars:150 }}</p>
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" style="width: {{ publication.progress_percent }}%;" aria-valuenow="{{ publication.progress_percent }}%" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    {% if publication.Montant_rest > 0 %}
+                        <div style="font-style: italic; text-decoration: underline;" ><strong>Montant restant {{ publication.Montant_rest|floatformat:2 }}$</strong></div>
+                    {% else %}
+                          <div style="font-style: italic; text-decoration: underline;" ><strong>Objectif atteint</strong></div>
+                    {% endif %}
+                    <br>
                     <!--<a href="{% url 'checkout' publication.id %}" class="btn btn-primary"> faire don</a>-->
                     <!--<a href="https://www.sandbox.paypal.com/ncp/payment/2VNM2GV5SMWJN" class="btn btn-primary">faire un Don</a>  -->
                     
