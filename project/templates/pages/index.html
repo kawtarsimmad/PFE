@@ -122,11 +122,8 @@
                 <img src="{{ event_data.event.image.url }}" class="card-img-top" alt="{{ event_data.event.title }}">
                 <p class="card-text">{{ event_data.event.description | truncatechars:150 }}</p>
                 <div class="progress">
-                  <div class="progress-bar" role="progressbar" style="width: {{ event_data.progress_percent }}%;" aria-valuenow="{{ event_data.progress_percent }}" aria-valuemin="0" aria-valuemax="100">
-                  </div>
-                  <div>
-                    <p>{{ event_data.progress_percent }}% Complete</p>
-                  </div>
+                  <div class="progress-bar" role="progressbar" style="width: {{ event_data.progress_percent }}%;" aria-valuenow="{{ event_data.progress_percent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div><p>{{ event_data.progress_percent }}% Complete</p></div>
                 </div>
                 <br>
                 <a href="{% url 'participate_event' event_data.event.pk %}" class="btn btn-primary">Participer</a>
