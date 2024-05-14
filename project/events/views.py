@@ -20,6 +20,14 @@ def donor_event_list(request):
 
 def eventIndex (request):
     events = Event.objects.all()
+    for event in events:
+        num_attendees = event.attendees.count()
+        if event.max_attendees > 0:
+            progress_percent = (num_attendees / event.max_attendees) * 100
+        else:
+            progress_percent = 0
+        event.progress_percent = progress_percent  # Add progress_percent to each event object
+    
     return render(request, 'events/eventIndex.html', {'events': events})
 
 def create_event(request):
@@ -53,7 +61,14 @@ def participate_event(request, event_id):
 
 def EventDetail(request, pk):
     events = get_object_or_404(Event, pk=pk)
-    return render(request, 'events/event_detail.html', {'events': events})
+    num_attendees = events.attendees.count()
+    
+    if events.max_attendees > 0:
+        progress_percent = (num_attendees / events.max_attendees) * 100
+    else:
+        progress_percent = 0
+
+    return render(request, 'events/event_detail.html', {'events': events, 'progress_percent': progress_percent})
  
 
 @login_required

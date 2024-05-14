@@ -83,6 +83,7 @@
                     <p class="card-text">{{ publication.contenu | truncatechars:150 }}</p>
                     <!--<a href="{% url 'checkout' publication.id %}" class="btn btn-primary"> faire don</a>-->
                     <!--<a href="https://www.sandbox.paypal.com/ncp/payment/2VNM2GV5SMWJN" class="btn btn-primary">faire un Don</a>  -->
+                    
                     <a href="{% url 'faire_don' publication.id %}" class="btn btn-primary">faire un Don</a>                
                     <a href="{% url 'detail' publication.id %}" class="btn btn-primary">Read More</a>
                   </div>
@@ -113,20 +114,32 @@
 
         <div class="row">
           {% if events %}
-            {% for events in events %}
-              <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
-                <div class="card" data-aos="fade-up" data-aos-delay="100">
-                  <!-- Assuming 'event.image' contains the URL to the event image -->
-                  <img src="{{ events.image.url }}" class="card-img-top" alt="{{ events.title }}">
-                  <div class="card-body">
-                    <h5 class="card-title">{{ events.title }}</h5>
-                    <p class="card-text">{{ events.description | truncatechars:150 }}</p>
-                    <a href="{% url 'participate_event' events.pk %}" class="btn btn-primary">participer</a>
-                    <a href="{% url 'detail_events' pk=events.id %}" class="btn btn-primary">Learn More</a>
+          {% for event_data in events %}
+          <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title">{{ event_data.event.title }}</h5>
+                <img src="{{ event_data.event.image.url }}" class="card-img-top" alt="{{ event_data.event.title }}">
+                <p class="card-text">{{ event_data.event.description | truncatechars:150 }}</p>
+                <div class="progress">
+                  <div class="progress-bar" role="progressbar" style="width: {{ event_data.progress_percent }}%;" aria-valuenow="{{ event_data.progress_percent }}" aria-valuemin="0" aria-valuemax="100">
+                  </div>
+                  <div>
+                    <p>{{ event_data.progress_percent }}% Complete</p>
                   </div>
                 </div>
+                <br>
+                <a href="{% url 'participate_event' event_data.event.pk %}" class="btn btn-primary">Participer</a>
+                <a href="{% url 'detail_events' pk=event_data.event.id %}" class="btn btn-primary">Learn More</a>
               </div>
-            {% endfor %}
+            </div>
+          </div>
+          {% empty %}
+            <div class="col-12">
+              <p>No upcoming events at the moment.</p>
+            </div>
+          {% endfor %}
+        
           {% else %}
             <div class="col-12">
               <p>No upcoming events at the moment.</p>

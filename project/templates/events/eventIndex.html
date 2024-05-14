@@ -71,7 +71,7 @@
             <div class="container d-flex align-items-center justify-content-between">
         
               <h1 class="logo">
-                <a href="#">
+                <a href="/">
                   <img src="{% static 'assets/img/bloom.png' %}" alt="">
                     HopeBloom
                 </a>
@@ -127,30 +127,33 @@
  
         <br><br><br><br>
         <div class="container">
-            {% if events %}
-                <p>events count: {{ events.count }}</p>
-                <ul class="event-list">
-                    {% for event in events %}
-                        <li class="event-item" data-aos="zoom-in" data-aos-delay="200">
-                            <div class="card">
-                                <img src="{{ event.image.url }}" class="event-img" alt="{{ event.title }}">
-                                <div class="event-content">
-                                    <h5 class="card-title">{{ event.title }}</h5>
-                                    <p class="card-text">{{ event.contenu | truncatechars:150 }}</p>
-                                    <!--<a href="{% url 'checkout' event.id %}" class="btn btn-primary"> faire don</a> -->    
-                                    <!--<a href="https://www.sandbox.paypal.com/ncp/payment/2VNM2GV5SMWJN" class="btn btn-primary">faire un Don</a>  -->     
-                                    <a href="{% url 'participate_event' event.pk %}" class="btn btn-primary">participer</a>
-                                    <a href="{% url 'detail_events' event.id %}" class="btn btn-primary">Read More</a>
-                                </div>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No events found.</p>
-            {% endif %}
+          {% if events %}
+              <p>Events count: {{ events.count }}</p>
+              <ul class="event-list">
+                  {% for event in events %}
+                      <li class="event-item" data-aos="zoom-in" data-aos-delay="200">
+                          <div class="card">
+                              <img src="{{ event.image.url }}" class="event-img" alt="{{ event.title }}">
+                              <div class="event-content">
+                                  <h5 class="card-title">{{ event.title }}</h5>
+                                  <p class="card-text">{{ event.description | truncatechars:150 }}</p>
+                                  <div class="progress">
+                                      <div class="progress-bar" role="progressbar" style="width: {{ event.progress_percent }}%;" aria-valuenow="{{ event.progress_percent }}" aria-valuemin="0" aria-valuemax="100">
+                                          {{ event.progress_percent }}%
+                                      </div>
+                                  </div>
+                                  <br>
+                                  <a href="{% url 'participate_event' event.pk %}" class="btn btn-primary">Participer</a>
+                                  <a href="{% url 'detail_events' event.id %}" class="btn btn-primary">Read More</a>
+                              </div>
+                          </div>
+                      </li>
+                  {% endfor %}
+              </ul>
+          {% else %}
+              <p>No events found.</p>
+          {% endif %}
         </div>
-
 
            <!-- ======= Footer ======= -->
            <footer id="footer">

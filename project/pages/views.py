@@ -20,7 +20,22 @@ def index(request):
     associations=Association.objects.all()
     donors=Donor.objects.all()
     events=Event.objects.order_by('-date')[:3]
+    
+    event_data = []
+    
+    for event in events:
+        num_attendees = event.attendees.count()
+        
+        if event.max_attendees > 0:
+            progress_percent = (num_attendees / event.max_attendees) * 100
+        else:
+            progress_percent = 0
 
+        event_data.append({
+            'event': event,
+            'num_attendees': num_attendees,
+            'progress_percent': progress_percent
+        })
 
     
     total_dons_all = Publication.calculate_total_dons_all()####total des dons  de tous les publications ou d'une pub 
@@ -35,6 +50,7 @@ def index(request):
         'associations':associations,
         'donors' : donors,
         'total_dons_all' : total_dons_all,
+        'events': event_data,
     }
     #publications = Publication.objects.order_by('date')[:2]
      #######admin_user = User.objects.filter(is_superuser=True).first()

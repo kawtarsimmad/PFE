@@ -66,8 +66,8 @@
     <body>
            
 
-        <header id="header" class="d-flex align-items-center">
-            <div class="container d-flex align-items-center justify-content-between">
+      <header id="header" class="d-flex align-items-center">
+          <div class="container d-flex align-items-center justify-content-between">
         
               <h1 class="logo">
                 <a href="#">
@@ -119,36 +119,47 @@
                   
                 </i>
             </nav>
-            </div>
+          </div>
         </header>
         <br><br><br><br>
         <div class="container">
         {% block content %}
-        <h1>{{ events.title }}</h1>
-        <img src="{{ events.image.url }}" alt="{{ events.title }}">
-        <p>{{ events.description }}</p>
-        <p>Date: {{ events.date }}</p>
-        <p>Time: {{ events.time }}</p>
-        <p>Location: {{ events.location }}</p>
-        <p>Max Attendees: {{ events.max_attendees }}</p>
-        <p>Current Attendees: {{ events.attendees.count }}</p>
-
-        {% if user.is_authenticated %}
-            {% if user in events.attendees.all %}
-                <p>You are already attending this events.</p>
-            {% elif events.attendees.count < events.max_attendees %}
-                <form method="post" action="{% url 'participate_event' events.pk %}">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Attend events</button>
-                </form>
+          <h1>{{ events.title }}</h1>
+          <img src="{{ events.image.url }}" alt="{{ events.title }}">
+          <p>{{ events.description }}</p>
+          <p>Date: {{ events.date }}</p>
+          <p>Time: {{ events.time }}</p>
+          <p>Location: {{ events.location }}</p>
+          <p>Max Attendees: {{ events.max_attendees }}</p>
+          <p>Current Attendees: {{ events.attendees.count }}</p>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: {{ progress_percent }}%;" aria-valuenow="{{ progress_percent }}" aria-valuemin="0" aria-valuemax="100">
+    
+            </div>
+            <div>
+              <p> {{ progress_percent }}% Complete </p>
+            </div>
+          </div>
+        </div>
+        <br><br>
+        <div>
+          <div>
+            {% if user.is_authenticated %}
+                {% if user in events.attendees.all %}
+                    <p>You are already attending this events.</p>
+                {% elif events.attendees.count < events.max_attendees %}
+                    <form method="post" action="{% url 'participate_event' events.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">Attend events</button>
+                    </form>
+                {% else %}
+                    <p>This events is fully booked.</p>
+                {% endif %}
             {% else %}
-                <p>This events is fully booked.</p>
+                <p><a href="{% url 'DonorSignIn' %}">Log in</a> to attend this events.</p>
             {% endif %}
-        {% else %}
-            <p><a href="{% url 'DonorSignIn' %}">Log in</a> to attend this events.</p>
-        {% endif %}
-   
-    </div>
+          </div>
+        </div>
 
 
     <!-- ======= Footer ======= -->
