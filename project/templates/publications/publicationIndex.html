@@ -27,6 +27,9 @@
             <!-- Template Main CSS File -->
         <link rel="stylesheet" type="text/css" href="{% static  'assets/css/style.css' %}" >
 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+
+
         <style>
           /* Increase the size of the navbar icon */
           #navbar .nav-link i {
@@ -61,7 +64,231 @@
          .publication-content {
             padding: 20px;
          }    
-        
+         
+         .blog-grid {
+             position: relative;
+             box-shadow: 0 1rem 1.75rem 0 rgba(45, 55, 75, 0.1);
+             height: 100%;
+             border: 0.0625rem solid rgba(220, 224, 229, 0.6);
+             border-radius: 0.25rem;
+             transition: all .2s ease-in-out;
+             height: 100%
+         }
+         
+         .blog-grid span {
+             color: #292dc2
+         }
+         
+         .blog-grid img {
+             width: 100%;
+             border-top-left-radius: 0.25rem;
+             border-top-right-radius: 0.25rem
+         }
+         
+         .blog-grid-text {
+             position: relative
+         }
+         
+         .blog-grid-text>span {
+             color: #292dc2;
+             font-size: 13px;
+             padding-right: 5px
+         }
+         
+         .blog-grid-text h4 {
+             line-height: normal;
+             margin-bottom: 15px
+         }
+         
+         .blog-grid-text .meta-style2 {
+             border-top: 1px dashed #cee1f8;
+             padding-top: 15px
+         }
+         
+         .blog-grid-text .meta-style2 ul li {
+             margin-bottom: 0;
+             font-weight: 500
+         }
+         
+         .blog-grid-text .meta-style2 ul li:last-child {
+             margin-right: 0
+         }
+         
+         .blog-grid-text ul {
+             margin: 0;
+             padding: 0
+         }
+         
+         .blog-grid-text ul li {
+             display: inline-block;
+             font-size: 14px;
+             font-weight: 500;
+             margin: 5px 10px 5px 0
+         }
+         
+         .blog-grid-text ul li:last-child {
+             margin-right: 0
+         }
+         
+         .blog-grid-text ul li i {
+             font-size: 14px;
+             font-weight: 600;
+             margin-right: 5px
+         }
+         
+         .blog-grid-text p {
+             font-weight: 400;
+             padding: 0
+         }
+         
+         .blog-list-left-heading:after,
+         .blog-title-box:after {
+             content: '';
+             height: 2px
+         }
+         
+         .blog-grid-simple-content a:hover {
+             color: #1d184a
+         }
+         
+         .blog-grid-simple-content a:hover:after {
+             color: #1d184a
+         }
+         .blog-grid-text {
+             position: relative
+         }
+         
+         .blog-grid-text>span {
+             color: #292dc2;
+             font-size: 13px;
+             padding-right: 5px
+         }
+         
+         .blog-grid-text h4 {
+             line-height: normal;
+             margin-bottom: 15px
+         }
+         
+         .blog-grid-text .meta-style2 {
+             border-top: 1px dashed #cee1f8 !important;
+             padding-top: 15px
+         }
+         
+         .blog-grid-text .meta-style2 ul li {
+             margin-bottom: 0;
+             font-weight: 500
+         }
+         
+         .blog-grid-text .meta-style2 ul li:last-child {
+             margin-right: 0
+         }
+         
+         .blog-grid-text ul {
+             margin: 0;
+             padding: 0
+         }
+         
+         .blog-grid-text ul li {
+             display: inline-block;
+             font-size: 14px;
+             font-weight: 500;
+             margin: 5px 10px 5px 0
+         }
+         
+         .blog-grid-text ul li:last-child {
+             margin-right: 0
+         }
+         
+         .blog-grid-text ul li i {
+             font-size: 14px;
+             font-weight: 600;
+             margin-right: 5px
+         }
+         
+         .blog-grid-text p {
+             font-weight: 400;
+             padding: 0
+         }
+         
+         a, a:active, a:focus {
+             color: #575a7b;
+             text-decoration: none;
+             transition-timing-function: ease-in-out;
+             -ms-transition-timing-function: ease-in-out;
+             -moz-transition-timing-function: ease-in-out;
+             -webkit-transition-timing-function: ease-in-out;
+             -o-transition-timing-function: ease-in-out;
+             transition-duration: .2s;
+             -ms-transition-duration: .2s;
+             -moz-transition-duration: .2s;
+             -webkit-transition-duration: .2s;
+             -o-transition-duration: .2s;
+         }
+         
+         .pagination {
+             border-radius: 0;
+             padding: 0;
+             margin: 0
+         }
+         
+         .pagination ul {
+             display: inline-block;
+             *display: inline;
+             *zoom: 1;
+             margin: 0 auto;
+             padding: 0
+         }
+         
+         .pagination li {
+             display: inline
+         }
+         
+         .pagination a {
+             float: left;
+             padding: 0 18px;
+             line-height: 40px;
+             text-decoration: none;
+             border: 1px solid #dbdbdb;
+             border-left-width: 0;
+             background: #fff
+         }
+         
+         .pagination a:hover {
+             background-color: #1d184a;
+             color: #fff
+         }
+         
+         .pagination .active a {
+             background-color: #f7f7f7;
+             color: #999;
+             cursor: default
+         }
+         
+         .pagination .disabled span {
+             color: #999;
+             background-color: transparent;
+             cursor: default
+         }
+         
+         .pagination .disabled a {
+             color: #999;
+             background-color: transparent;
+             cursor: default
+         }
+         
+         .pagination .disabled a:hover {
+             color: #999;
+             background-color: transparent;
+             cursor: default
+         }
+         
+         .pagination li:first-child a {
+             border-left-width: 1px
+         }
+         
+         .mt-6, .my-6 {
+             margin-top: 3.5rem;
+         }
         </style>
     </head>
     <body>
@@ -125,41 +352,48 @@
         </header>
         {% block content %}
         {% endblock %}
- 
+
         <br><br><br><br>
         <div class="container">
-            {% if publications %}
-                <p>Publications count: {{ publications.count }}</p>
-                <ul class="publication-list">
-                    {% for publication in publications %}
-                        <li class="publication-item" data-aos="zoom-in" data-aos-delay="200">
-                            <div class="card">
-                                <img src="{{ publication.image.url }}" class="publication-img" alt="{{ publication.titre }}">
-                                <div class="publication-content">
-                                    <h5 class="card-title">{{ publication.titre }}</h5>
-                                    <p class="card-text">{{ publication.contenu | truncatechars:150 }}</p>
-                                    <div class="progress">
-                                      <div class="progress-bar" role="progressbar" style="width: {{ publication.progress_percent }}%;" aria-valuenow="{{ publication.progress_percent }}%" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                    {% if publication.Montant_rest > 0 %}
-                                        <div style="font-style: italic; text-decoration: underline;" ><strong>Montant restant {{ publication.Montant_rest|floatformat:2 }}$</strong></div>
-                                    {% else %}
-                                          <div style="font-style: italic; text-decoration: underline;" ><strong>Objectif atteint</strong></div>
-                                    {% endif %}
-                                    <br>
-                                    <!--<a href="{% url 'checkout' publication.id %}" class="btn btn-primary"> faire don</a> -->    
-                                    <!--<a href="https://www.sandbox.paypal.com/ncp/payment/2VNM2GV5SMWJN" class="btn btn-primary">faire un Don</a>  -->     
-                                    <a href="{% url 'faire_don' publication.id%}" class="btn btn-primary">faire un Don</a>      
-                                    <a href="{% url 'detail' publication.id %}" class="btn btn-primary">Read More</a>
-                                </div>
-                            </div>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No publications found.</p>
-            {% endif %}
-        </div>
+          {% if publications %}
+              <p>Publications count: {{ publications.count }}</p>
+              <div class="row mt-5">
+                  {% for publication in publications %}
+                      <div class="col-md-6 col-lg-4">
+                          <div class="blog-grid wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                              <div class="blog-grid-img position-relative">
+                                  <img src="{{ publication.image.url }}" class="publication-img" alt="{{ publication.titre }}">
+                              </div>
+                              <div class="blog-grid-text p-4">
+                                  <h3 class="h5 mb-3">{{ publication.titre }}</h3>
+                                  <p class="display-30">{{ publication.contenu | truncatechars:150 }}</p>
+                                  <div class="meta meta-style2">
+                                      <div class="progress">
+                                          <div class="progress-bar" role="progressbar" style="width: {{ publication.progress_percent }}%;" aria-valuenow="{{ publication.progress_percent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                      </div>
+                                      <ul>
+                                          <li><i class="fas fa-calendar-alt"></i> {{ publication.date|date:"d M, Y" }}</li>
+                                      </ul>
+                                  </div>
+                                  <br>
+                                  {% if publication.Montant_rest > 0 %}
+                                      <div style="font-style: italic; text-decoration: underline;"><strong>Montant restant {{ publication.Montant_rest|floatformat:2 }}$</strong></div>
+                                  {% else %}
+                                      <div style="font-style: italic; text-decoration: underline;"><strong>Objectif atteint</strong></div>
+                                  {% endif %}
+                                  <br>
+                                  <a href="{% url 'faire_don' publication.id %}" class="btn btn-primary">Faire un Don</a>
+                                  <a href="{% url 'detail' publication.id %}" class="btn btn-primary">Read More</a>
+                              </div>
+                          </div>
+                      </div>
+                  {% endfor %}
+              </div>
+          {% else %}
+              <p>No publications found.</p>
+          {% endif %}
+      </div>
+      
 
 
            <!-- ======= Footer ======= -->
