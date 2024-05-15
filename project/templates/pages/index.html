@@ -137,8 +137,7 @@
             <div class="card mb-4 shadow-sm">
               <div class="card-body">
                 <h5 class="card-title">{{ event_data.event.title }}</h5>
-                <img src="{{ event_data.event.image.url }}" class="card-img-top" alt="{{ event_data.event.title }}">
-                <p class="card-text">{{ event_data.event.description | truncatechars:150 }}</p>
+                <img src="{{ event_data.event.image.url }}" class="card-img-top" alt="{{ event_data.event.title }}"><br><br>
                 <div class="progress">
                   <div class="progress-bar" role="progressbar" style="width: {{ event_data.progress_percent }}%;" aria-valuenow="{{ event_data.progress_percent }}" aria-valuemin="0" aria-valuemax="100"></div>
                   <div><p>{{ event_data.progress_percent }}% Complete</p></div>
