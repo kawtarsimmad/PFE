@@ -23,12 +23,16 @@ def eventIndex (request):
     for event in events:
         num_attendees = event.attendees.count()
         if event.max_attendees > 0:
+            places_left = event.max_attendees - num_attendees
             progress_percent = (num_attendees / event.max_attendees) * 100
         else:
             progress_percent = 0
+            places_left = 0
         event.progress_percent = progress_percent  # Add progress_percent to each event object
+        event.places_left = places_left
     
     return render(request, 'events/eventIndex.html', {'events': events})
+
 
 def create_event(request):
     if request.method == 'POST':

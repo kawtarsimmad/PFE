@@ -143,6 +143,7 @@
                                       </div>
                                   </div>
                                   <br>
+                                  <p>Number of Places left: {{ event.places_left }}</p>
                                   <a href="{% url 'participate_event' event.pk %}" class="btn btn-primary">Participer</a>
                                   <a href="{% url 'detail_events' event.id %}" class="btn btn-primary">Read More</a>
                               </div>

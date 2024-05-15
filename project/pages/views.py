@@ -41,14 +41,17 @@ def index(request):
         num_attendees = event.attendees.count()
         
         if event.max_attendees > 0:
-            progress_percent = (num_attendees / event.max_attendees) * 100
+                places_left = event.max_attendees - num_attendees
+                progress_percent = (num_attendees / event.max_attendees) * 100
         else:
-            progress_percent = 0
+                progress_percent = 0
+                places_left = 0
 
         event_data.append({
-            'event': event,
-            'num_attendees': num_attendees,
-            'progress_percent': progress_percent
+                'event': event,
+                'num_attendees': num_attendees,
+                'progress_percent': progress_percent,
+                'places_left' : places_left,
         })
 
     
