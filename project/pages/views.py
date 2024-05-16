@@ -99,10 +99,6 @@ def latest_publications(request):
     }
     return render(request, 'pages/index.html', context)
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 def association_list (request):
     association_list=Association.objects.all()
     return render (request,'users/association_list.html',{'association_list': association_list})

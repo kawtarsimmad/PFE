@@ -63,12 +63,8 @@ def activate(request,uidb64,token):
         
     else:
         return render(request,'users/activation_failed.html')
-<<<<<<< Updated upstream
-    
-=======
 
 
->>>>>>> Stashed changes
 def send_activation_email(user):
     subject = "Welcome to HopeBloom Sign up!!"
     message = f"Hello {user.first_name}!\nWelcome to HopeBloom.\nPlease confirm your email address."
@@ -85,11 +81,7 @@ def send_confirmation_email(user, request):
     })
     send_mail(email_subject, message, settings.EMAIL_HOST_USER, [user.email])
   
-<<<<<<< Updated upstream
-=======
 
-    
->>>>>>> Stashed changes
 #register en tant que Donor
 def DonorSignup(request):
     if request.method == 'POST':
