@@ -98,3 +98,7 @@ def latest_publications(request):
         'publications': latest_publications
     }
     return render(request, 'pages/index.html', context)
+
+def association_list (request):
+    association_list=Association.objects.all()
+    return render (request,'users/association_list.html',{'association_list': association_list})
