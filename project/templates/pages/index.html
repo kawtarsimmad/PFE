@@ -101,9 +101,6 @@
                           <div style="font-style: italic; text-decoration: underline;" ><strong>Objectif atteint</strong></div>
                     {% endif %}
                     <br>
-                    <!--<a href="{% url 'checkout' publication.id %}" class="btn btn-primary"> faire don</a>-->
-                    <!--<a href="https://www.sandbox.paypal.com/ncp/payment/2VNM2GV5SMWJN" class="btn btn-primary">faire un Don</a>  -->
-                    
                     <a href="{% url 'faire_don' publication.id %}" class="btn btn-primary">faire un Don</a>                
                     <a href="{% url 'detail' publication.id %}" class="btn btn-primary">Read More</a>
                   </div>
@@ -320,7 +317,7 @@
           <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
             <div class="count-box">
               <i class="bi bi-cash-coin"></i>
-              <span data-purecounter-start="0" data-purecounter-end="{{ total_dons_all }}" data-purecounter-duration="1" class="purecounter"></span>
+              <span data-purecounter-start="0" data-purecounter-end="0" data-purecounter-duration="1" class="purecounter"></span>
               <p>Donations raised</p>
             </div>
           </div>
@@ -330,8 +327,13 @@
       </div>
     </section><!-- End Counts Section -->
 
+<<<<<<< Updated upstream
     <!-- ======= Association List Section ======= -->
     <section id="association-list" class="services">
+=======
+     <!-- ======= Association List Section ======= -->
+     <section id="association-list" class="services">
+>>>>>>> Stashed changes
       <div class="container" data-aos="fade-up">
           <div class="section-title">
               <h2>Associations</h2>
@@ -344,7 +346,10 @@
         </div>
       </div>
     </section>
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
     
 

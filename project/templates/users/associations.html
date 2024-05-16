@@ -116,7 +116,7 @@
         <table class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th style="text-align: center">Image</th>
+                    <th style="text-align: center">Id</th>
                     <th style="text-align: center">Name</th>
                     <th style="text-align: center">Email</th>
                     <th style="text-align: center">Statut Juridique</th>
@@ -126,13 +126,7 @@
             <tbody>
                 {% for association in associations %}
                 <tr>
-                    <td style="text-align: center">
-                        {% if association.image %}
-                            <img src="{{ association.image.url }}" alt="Association Image" style="width: 35px; height: 35px; border: none;">
-                        {% else %}
-                            No Image
-                        {% endif %}
-                    </td>
+                    <td style="text-align: center">{{ association.id }}</td>
                     <td style="text-align: center">{{ association.user.first_name }}</td>
                     <td style="text-align: center">{{ association.user.email }}</td>
                     <td style="text-align: center">{{ association.stat_juridique }}</td>

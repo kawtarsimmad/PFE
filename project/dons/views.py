@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from . models import Don
 from publications.models import Publication
+from users.models import Association
 from .forms import PaiementForm
 from paypal.standard.forms import PayPalPaymentsForm
 from django.conf import settings
@@ -41,11 +42,13 @@ def delete_don(request, don_id):
 def CheckOut(request, don_id):
 
     don = Don.objects.get(id=don_id)
-
+     # Récupérer l'association associée à la publication du don
+    association = don.publication.association
+    paypal_email = association.paypal_email
     host = request.get_host()
 
     paypal_checkout = {
-        'business': settings.PAYPAL_RECEIVER_EMAIL,
+        'business': paypal_email,
         'amount': don.montantDons,
         'item_name': don.id,
         'invoice': uuid.uuid4(),

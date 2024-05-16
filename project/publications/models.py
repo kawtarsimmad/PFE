@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from users.models import Association,User
+from users.models import Association
 from categories.models import Category
 
 # Create your models here.
@@ -12,7 +12,7 @@ class Publication(models.Model):
     date=models.DateTimeField(default=timezone.now)
     image=models.ImageField(upload_to='photos/%y/%m/%d', blank=True)
     montant=models.DecimalField(max_digits=20,decimal_places=2)
-    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    association=models.ForeignKey(Association,on_delete=models.CASCADE,null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE,null=True,blank=True)
     objects = models.Manager() 
 
@@ -21,7 +21,7 @@ class Publication(models.Model):
     
     
     def calculate_total_dons(self):
-        total_dons = sum(d.montantDons for d in self.dons.all())
+        total_dons = sum(d.montantDons for d in self.dons.filter(est_paye=True))
         return total_dons
     
     @classmethod

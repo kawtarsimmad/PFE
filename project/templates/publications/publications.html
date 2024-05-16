@@ -129,7 +129,7 @@
                                     <td style="text-align: center">
                                         <a href="{% url 'detail' p.id %}">{{ p.id }}</a>
                                     </td>
-                                    <td style="text-align: center"> {{ p.user.first_name}}</td>
+                                    <td style="text-align: center"> {{ p.association.user.first_name }}</td>
                                     <td style="text-align: center"> {{ p.category.name}}</td>
                                     <td style="text-align: center"> {{ p.date }}</td>
                                     <td style="text-align: center"> {{ p.montant }}</td>

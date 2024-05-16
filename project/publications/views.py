@@ -12,7 +12,7 @@ import uuid
 from django.urls import reverse
 from django.core.mail import send_mail
 from categories.models import Category
-from users.models import Donor
+from users.models import Donor,Association
 
 def publication(request):
     if request.method == "POST":
@@ -55,10 +55,10 @@ def publicationIndex(request):
 
 
 
-@login_required
+
 def PubDetail(request, pk):
     publication = get_object_or_404(Publication, pk=pk)
-    dons = publication.dons.all()  # Récupérer tous les dons associés à cette publication
+    dons = publication.dons.filter(est_paye=True) # Récupérer tous les dons associés à cette publication
     
     montant_obj = publication.montant
     totalDons=publication.calculate_total_dons()  
@@ -89,8 +89,8 @@ def PubCreate(request):
         form=PublicationForm(request.POST, request.FILES)
         if form.is_valid():
             publication=form.save(commit=False)
-            publication.user= request.user
-            
+            association_instance = get_object_or_404(Association, user=request.user)
+            publication.association = association_instance            
             urgent_category = Category.objects.get(name='Urgent')
 
             if publication.category == urgent_category:
@@ -124,7 +124,7 @@ def send_email_alert(publication):
             return False    
     else:
         return False  
-
+##############################################################
 
   
 
@@ -162,8 +162,12 @@ def PubDelete(request, publication_id):
 #PubList retourne pubs de user connecté
 @login_required
 def PubList(request):
-    publications = Publication.objects.filter(user=request.user)
-    return render(request, 'publications/list.html', {'publications': publications})
+    if hasattr(request.user, 'dashboard_association'):
+        association = request.user.dashboard_association
+        # Now you can use association in your query
+        publications = Publication.objects.filter(association=association)
+        return render(request, 'publications/list.html', {'publications': publications})
+  
 
 
 def dons_associes(request, publication_id):
@@ -174,4 +178,3 @@ def dons_associes(request, publication_id):
     total_dons_all = Publication.calculate_total_dons_all()
     
     return render(request, 'publications/dons_associes.html', {'publication': publication, 'dons': dons,'total_dons_all': total_dons_all})
-

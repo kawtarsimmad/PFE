@@ -55,6 +55,8 @@ urlpatterns = [
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
     path('DonorSignup/account-activation/', views.account_activation_email, name='account-activation'),
     path('AssociationSignup/account-activation/', views.account_activation_email, name='account-activation'),
+    path('associations/<int:association_id>/contact/', views.contact_association, name='contact_association'),
+    path('contact/success/', views.contact_success, name='contact_success'),
 
 
 ]

@@ -23,3 +23,5 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(add_predefined_categories, reverse_code=remove_predefined_categories)
     ]
+
+

@@ -117,14 +117,16 @@
                 <p><h4>Titre:</h4> {{ publication.titre }}</p>
                 <p><h4>Montant objectif :</h4>  {{ publication.montant }}$</p>
                 <p><h4>Category :</h4>{{ publication.category }}</p>
-                <p><h4>Nom de l'association :</h4>{{ publication.user.first_name }}</p>
+                <p><h4>Nom de l'association :</h4>{{ publication.association.user.first_name }}</p>
                 <p><h4>Date de création :</h4>{{ publication.date }}</p>
                 <p><h4>Description  :</h4>{{ publication.contenu }}</p>
                 
             </div>
             <div class="image">
                 <img src="{{ publication.image.url }}" alt="{{ publication.titre }}">
-            </div>    
+                <a href="{% url 'faire_don' publication.id %}" class="btn btn-primary">faire un Don</a>                
+            </div>  
+
         </div>
         <br>
         <div class="progress">
@@ -144,7 +146,7 @@
                 <li>
                     <span style=""><h5>Donateur:</h5></span><span>{{ don.user.first_name }} </span>
                     <span style=""><h5>Montant du don:</h5></span><span>{{ don.montantDons }}$</span>
-                    <span style=""><h5>Date du don:</h5></span><span>{{ don.date }}  </span> 
+                    <!--<span style=""><h5>Date du don:</h5></span><span>{{ don.date }}  </span> -->
                 </li>
             {% empty %}
                 <li class="no-don">Aucun don associé à cette publication pour le moment.</li>

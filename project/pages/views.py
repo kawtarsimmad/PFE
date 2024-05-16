@@ -19,7 +19,7 @@ def index(request):
     users=User.objects.all()
     associations=Association.objects.all()
     donors=Donor.objects.all()
-    total_dons_all = Publication.calculate_total_dons_all()####total des dons  de tous les publications ou d'une pub 
+    total_dons_all = Publication.calculate_total_dons_all()####total des dons  de tous les publications 
 
     events=Event.objects.order_by('-date')[:3]
     publication_data = []
@@ -65,11 +65,11 @@ def index(request):
         'users' : users,
         'associations':associations,
         'donors' : donors,
-        'total_dons_all' : total_dons_all,
+        #'total_dons_all' : total_dons_all,
         'events': event_data,
         'publication_data': publication_data,
-        'totalDons':totalDons,
-        'Montant_rest':Montant_rest
+        #'totalDons':totalDons,
+        #'Montant_rest':Montant_rest
     }
     #publications = Publication.objects.order_by('date')[:2]
      #######admin_user = User.objects.filter(is_superuser=True).first()
@@ -99,6 +99,10 @@ def latest_publications(request):
     }
     return render(request, 'pages/index.html', context)
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 def association_list (request):
     association_list=Association.objects.all()
     return render (request,'users/association_list.html',{'association_list': association_list})

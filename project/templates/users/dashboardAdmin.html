@@ -195,7 +195,11 @@
                     
                     <div class="count-box">
                         <i class="bi bi-cash-coin"></i>
-                        <span data-purecounter-start="0" data-purecounter-end="{{ dons.count }}" data-purecounter-duration="1" class="purecounter"></span>
+                        {% if don.est_paye %}
+                            <span>{{ dons.count }}</span>
+                        {% else %}
+                            <span data-purecounter-start="0" data-purecounter-end="{{ dons.count }}" data-purecounter-duration="1" class="purecounter"></span>
+                        {% endif %}
                         <p>Dons</p>
                     </div>
                     <div class="count-box">

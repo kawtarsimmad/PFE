@@ -14,4 +14,4 @@ class Don(models.Model):
     objects = models.Manager() 
     
     def __str__(self) :
-        return f"Don de {self.donor.first_name} - Montant: {self.montantDons} - Payé: {self.est_paye}"  
+        return f"Don de {self.user.first_name} - Montant: {self.montantDons} - Payé: {self.est_paye}"  

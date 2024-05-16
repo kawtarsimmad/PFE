@@ -56,10 +56,19 @@ def activate(request,uidb64,token):
         myuser.save()
         login(request,myuser)
         messages.success(request, "Your Account has been activated!!")
-        return redirect('dashboard_donor')
+        if myuser.is_donor:
+            return redirect('dashboard_donor')
+        if myuser.is_association:
+            return redirect('dashboard_association')
+        
     else:
         return render(request,'users/activation_failed.html')
+<<<<<<< Updated upstream
     
+=======
+
+
+>>>>>>> Stashed changes
 def send_activation_email(user):
     subject = "Welcome to HopeBloom Sign up!!"
     message = f"Hello {user.first_name}!\nWelcome to HopeBloom.\nPlease confirm your email address."
@@ -76,14 +85,22 @@ def send_confirmation_email(user, request):
     })
     send_mail(email_subject, message, settings.EMAIL_HOST_USER, [user.email])
   
+<<<<<<< Updated upstream
+=======
+
+    
+>>>>>>> Stashed changes
 #register en tant que Donor
 def DonorSignup(request):
     if request.method == 'POST':
         name = request.POST.get('name', None)
         email = request.POST.get('email', None)
+        photo = request.FILES.get('image', None)
         password = request.POST.get('password', None)
         repassword = request.POST.get('repassword', None)
         telephone = request.POST.get('telephone', None)
+        adresse=request.POST.get('adresse',None)
+
         try:
             validate_email(email)
         except ValidationError:
@@ -109,10 +126,11 @@ def DonorSignup(request):
         # Create a donor associated with the user
         donor = Donor.objects.create(
             user=utilisateur,
-            phone_number=telephone,  
+            phone_number=telephone,
+            adresse=adresse,  
         )
+        donor.image=photo
         donor.save()
-        
         # Welcome Email
         send_activation_email(utilisateur)
         
@@ -174,10 +192,15 @@ def AssociationSignup(request):
     if request.method == 'POST':
         name = request.POST.get('name', None)
         email = request.POST.get('email', None)
+        photo = request.FILES.get('image', None)
         password = request.POST.get('password', None)
         repassword = request.POST.get('repassword', None)
         telephone = request.POST.get('telephone', None)
         stat_juridique=request.POST.get('stat_juridique',None)
+        adresse=request.POST.get('adresse',None)
+        paypal_email=request.POST.get('paypal_email',None)
+
+
         try:
             validate_email(email)
         except ValidationError:
@@ -203,8 +226,11 @@ def AssociationSignup(request):
         association = Association.objects.create(
             user=utilisateur,
             phone_number=telephone,
-            stat_juridique=stat_juridique,  
+            stat_juridique=stat_juridique, 
+            paypal_email=paypal_email,
+            adresse=adresse, 
         )
+        association.image=photo
         association.save()
         # Welcome Email
         send_activation_email(utilisateur)
@@ -358,10 +384,31 @@ def add_donor(request):
         phone_number = request.POST.get('phone_number')
         password = request.POST.get('password')  # Retrieve the password from the form
 
-
-        # Create a new user and donor
-        user = User.objects.create_user(username=email, email=email, password=password, first_name=name)
-        donor = Donor.objects.create(user=user, phone_number=phone_number)
+        try:
+            validate_email(email)
+        except ValidationError:
+            return render(request, 'users/registerdonor.html', {'error': True, 'message': 'Entrez un email valide !'})
+        
+        if not name or not email or not password :
+            return render(request, 'users/registerdonor.html', {'error': True, 'message': 'Veuillez remplir tous les champs nécessaires !'})
+        
+        if User.objects.filter(email=email).exists():
+            return render(request, 'users/registerdonor.html', {'error': True, 'message': 'Un utilisateur avec cet email existe déjà !'})
+        
+        # Hash the password and create a new user
+        utilisateur = User.objects.create_user(username=email, email=email, password=password, first_name=name)
+        utilisateur.is_donor = True
+        utilisateur.is_association = False
+        utilisateur.is_admin=False
+        utilisateur.is_active = True
+        utilisateur.save()
+        
+        # Create a donor associated with the user
+        donor = Donor.objects.create(
+            user=utilisateur,
+            phone_number=phone_number,
+        )
+        donor.save()
 
         return redirect('donors')
 
@@ -373,11 +420,13 @@ def update_donor(request, donor_id):
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
+        image = request.POST.get('image')
         phone_number = request.POST.get('phone_number')
 
         donor.user.first_name = name
         donor.user.email = email
         donor.phone_number = phone_number
+        donor.image = image
         donor.user.save()
         donor.save()
 
@@ -387,40 +436,57 @@ def update_donor(request, donor_id):
 
 def delete_donor(request, donor_id):
     donor = get_object_or_404(Donor, pk=donor_id)    
+    donor.user.delete()
     donor.delete()
+    
     return redirect('donors')
 
 ##### Association ########################
 
 
-def add_association(request, association_id=None):
-    if association_id:
-        association = get_object_or_404(Association, id=association_id)
-    else:
-        association = None
-
+def add_association(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        phone_number = request.POST.get('phone_number')
-        stat_juridique = request.POST.get('stat_juridique')
-        password = request.POST.get('password')  # Retrieve the password from the form
+        name = request.POST.get('name', None)
+        email = request.POST.get('email', None)
+        password = request.POST.get('password', None)
+        telephone = request.POST.get('telephone', None)
+        stat_juridique=request.POST.get('stat_juridique',None)
+        adresse=request.POST.get('adresse',None)
+        image=request.POST.get('image',None)
+        paypal_email=request.POST.get('paypal_email',None)
 
 
-        if association:
-            association.user.first_name = name
-            association.user.email = email
-            association.phone_number = phone_number
-            association.stat_juridique = stat_juridique
-            association.user.save()
-            association.save()
-        else:
-            user = User.objects.create_user(username=email, email=email, password=password, first_name=name)
-            association = Association.objects.create(user=user, phone_number=phone_number, stat_juridique=stat_juridique)
+        try:
+            validate_email(email)
+        except ValidationError:
+            return render(request, 'users/registerassociation.html', {'error': True, 'message': 'Entrez un email valide !'})
+
+        if not name or not email or not password :
+            return render(request, 'users/registerassociation.html', {'error': True, 'message': 'Veuillez remplir tous les champs nécessaires !'})
+        
+        if User.objects.filter(email=email).exists():
+            return render(request, 'users/registerassociation.html', {'error': True, 'message': 'Un utilisateur avec cet email existe déjà !'})
+        # Hash the password and create a new user
+        utilisateur = User.objects.create_user(username=email, email=email, password=password, first_name=name)
+        utilisateur.is_association = True
+        utilisateur.is_donor=False
+        utilisateur.is_admin=False
+        utilisateur.is_active = True
+        utilisateur.save()
+        # Create a association associated with the user
+        association = Association.objects.create(
+            user=utilisateur,
+            phone_number=telephone,
+            stat_juridique=stat_juridique,
+            image=image,  
+            paypal_email=paypal_email,
+            adresse=adresse, 
+        )
+        association.save()
 
         return redirect('associations')
 
-    return render(request, 'users/add_association.html', {'association': association})
+    return render(request, 'users/add_association.html')
 
 def update_association(request, association_id):
     association = get_object_or_404(Association, id=association_id)
@@ -430,11 +496,18 @@ def update_association(request, association_id):
         email = request.POST.get('email')
         phone_number = request.POST.get('phone_number')
         stat_juridique = request.POST.get('stat_juridique')
+        adresse = request.POST.get('adresse')
+        image = request.POST.get('image')
+        paypal_email = request.POST.get('paypal_email')
 
         association.user.first_name = name
         association.user.email = email
         association.phone_number = phone_number
         association.stat_juridique = stat_juridique
+        association.adresse = adresse
+        association.image=image
+        association.paypal_email = paypal_email
+
         association.user.save()
         association.save()
 
@@ -444,7 +517,9 @@ def update_association(request, association_id):
 
 def delete_association(request, association_id):
     association = Association.objects.get(pk=association_id)
+    association.user.delete()
     association.delete()
+
     return redirect('associations')
 
 
@@ -463,3 +538,48 @@ class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
     template_name = 'users/change_password.html'
     success_message = "Successfully Changed Your Password"
     success_url = reverse_lazy('DonorSignIn')
+
+
+
+############# Contact Association ##################
+
+def contact_association(request, association_id):
+    if request.method == 'POST':
+        subject = request.POST.get('subject')
+        sender_name = request.POST.get('sender_name')
+        sender_email = request.POST.get('sender_email')
+        message_content = request.POST.get('message')
+
+        # Get the association based on association_id
+        association = Association.objects.get(id=association_id)
+
+        # Compose the email message including sender's details
+        message = f"Hello {association.user.first_name},\n\n"
+        message += f"This is to inform you that {sender_name} ({sender_email}) wants to contact you.\n\n"
+        message += f"Message Content:\n{message_content}\n\n"
+        message += "Please respond to this email to follow up.\n\n"
+        message += "Best regards,\nHopeBloom"
+
+        # Send email using sender's email as 'from_email'
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email=sender_email,  # Use sender's email as 'from_email'
+            recipient_list=[association.user.email],
+            fail_silently=False,  # Set to True to ignore errors during email sending
+        )
+
+        return redirect('contact_success')  # Redirect to contact success page
+
+    else:
+        # Retrieve the association details
+        association = Association.objects.get(id=association_id)
+
+        return render(request, 'users/contact_association.html', {'association': association})
+    
+
+def contact_success(request):
+    return render(request, 'users/contact_success.html')
+
+##########################################################################################
+

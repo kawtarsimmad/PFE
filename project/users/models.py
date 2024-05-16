@@ -6,7 +6,7 @@ from PIL import Image
 
 
 class User(AbstractUser):
-    is_association= models.BooleanField(default=True)
+    is_association= models.BooleanField(default=False)
     is_donor = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
     groups = models.ManyToManyField(Group, related_name='user_groups')
@@ -20,6 +20,8 @@ class User(AbstractUser):
 class Donor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True, related_name='dashboard_donor')
     phone_number = models.CharField(max_length=20, null=True, blank=True)
+    image = models.ImageField(upload_to='donor/profile', default='Default/user.png')
+
     objects = models.Manager() 
     
     def __str__(self):
@@ -29,10 +31,14 @@ class Association(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True, related_name='dashboard_association')
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     stat_juridique=models.CharField(max_length=50, null=True, blank=True)
+    adresse=models.CharField(max_length=150,null=True,default=None,verbose_name='address')
+    paypal_email=models.EmailField(max_length=254, default='sb-association@gmail.com',verbose_name='paypal address')
+    image = models.ImageField(upload_to='admin/profile', default='Default/user.png')
+
     objects = models.Manager() 
     
     def __str__(self):
-        return "Association Name : " + self.user.first_name
+        return "Association Name : " + self.user.username
   
 
 
