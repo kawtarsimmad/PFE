@@ -120,7 +120,7 @@ def DonorSignup(request):
         send_confirmation_email(utilisateur, request)
         
         messages.success(request, "Votre compte a été créé avec succès. Veuillez vérifier votre email pour l'activation.")
-        return redirect('account_activation_email')
+        
 
     return render(request, 'users/registerdonor.html', {'error': False, 'message': ''})
 
